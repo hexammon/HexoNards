@@ -1,0 +1,24 @@
+{
+    "name": "free-elephants/hexo-nards",
+    "type": "project",
+    "authors": [
+        {
+            "name": "samizdam",
+            "email": "samizdam@inbox.ru"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "FreeElephants\\HexoNards\\": "src/php"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FreeElephants\\HexoNardsTests\\": "tests/php"
+        }
+    }
+}
