@@ -18,7 +18,9 @@ class Tile
 
     public function __construct(Row $row, Column $column)
     {
+        $row->addTile($this);
         $this->row = $row;
+        $column->addTile($this);
         $this->column = $column;
     }
 
@@ -36,5 +38,10 @@ class Tile
     public function getColumn(): Column
     {
         return $this->column;
+    }
+
+    public function getCoordinates(): string
+    {
+        return $this->row->getNumber() . '.' . $this->column->getNumber();
     }
 }
