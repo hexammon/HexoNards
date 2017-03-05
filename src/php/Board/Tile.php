@@ -2,6 +2,8 @@
 
 namespace FreeElephants\HexoNards\Board;
 
+use FreeElephants\HexoNards\Game\Castle;
+
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
@@ -15,6 +17,10 @@ class Tile
      * @var Column
      */
     private $column;
+    /**
+     * @var Castle
+     */
+    private $castle;
 
     public function __construct(Row $row, Column $column)
     {
@@ -43,5 +49,23 @@ class Tile
     public function getCoordinates(): string
     {
         return $this->row->getNumber() . '.' . $this->column->getNumber();
+    }
+
+    public function hasCastle(): bool
+    {
+        return null !== $this->castle;
+    }
+
+    public function setCastle(Castle $castle)
+    {
+        $this->castle = $castle;
+    }
+
+    /**
+     * @return Castle
+     */
+    public function getCastle(): Castle
+    {
+        return $this->castle;
     }
 }

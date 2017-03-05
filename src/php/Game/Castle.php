@@ -3,6 +3,7 @@
 namespace FreeElephants\HexoNards\Game;
 
 use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -22,6 +23,9 @@ class Castle
     public function __construct(Player $owner, Tile $tile)
     {
         $this->owner = $owner;
+        if($tile->hasCastle()) {
+            throw new ConstructOnOccupiedTileException();
+        }
         $this->tile = $tile;
     }
 
