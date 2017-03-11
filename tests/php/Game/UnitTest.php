@@ -12,7 +12,7 @@ use FreeElephants\HexoNards\Game\Unit;
 class UnitTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructingAdnGetters()
+    public function testConstructingAndGetters()
     {
         $owner = $this->createMock(Player::class);
         $tile = $this->createMock(Tile::class);
