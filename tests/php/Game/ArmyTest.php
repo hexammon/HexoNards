@@ -2,6 +2,7 @@
 
 namespace FreeElephants\HexoNardsTests\Game;
 
+use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
 use FreeElephants\HexoNards\Game\Player;
@@ -20,6 +21,7 @@ class ArmyTest extends AbstractTestCase
         $anotherArmy = new Army($owner, $this->createTile(), 2);
 
         $newArmy = Army::merge($army, $anotherArmy);
+
         $this->assertCount(3, $newArmy);
         $this->assertNull($army);
         $this->assertNull($anotherArmy);
@@ -49,4 +51,23 @@ class ArmyTest extends AbstractTestCase
         $this->expectException(MoveToOccupiedTileException::class);
         $army->move($newTile);
     }
+
+    public function testReplenish()
+    {
+        $owner = $this->createMock(Player::class);
+        $army = new Army($owner, $this->createTile(), 1);
+
+        $army->replenish(2);
+
+        $this->assertCount(3, $army);
+    }
+
+    public function testReplenishNegativeValueException()
+    {
+        $owner = $this->createMock(Player::class);
+        $army = new Army($owner, $this->createTile(), 1);
+        $this->expectException(InvalidArgumentException::class);
+        $army->replenish(-2);
+    }
+
 }

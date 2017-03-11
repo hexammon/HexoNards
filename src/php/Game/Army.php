@@ -3,6 +3,7 @@
 namespace FreeElephants\HexoNards\Game;
 
 use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
 
 /**
@@ -80,5 +81,13 @@ class Army implements \Countable
         $this->tile->resetArmy();
         $this->tile = $newTile;
         $newTile->setArmy($this);
+    }
+
+    public function replenish(int $value)
+    {
+        if ($value <= 0) {
+            throw new InvalidArgumentException('Value for replenish must be greater than 0. ');
+        }
+        $this->numberOfUnits += $value;
     }
 }

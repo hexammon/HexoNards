@@ -15,7 +15,9 @@ class TwoDiceTest extends AbstractTestCase
     {
         $twoDice = new TwoDice();
         $random = $twoDice->random();
+
         $variants = range(2, 12);
+
         $this->assertContains($random, $variants);
     }
 }
