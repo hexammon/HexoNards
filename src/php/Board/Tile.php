@@ -2,6 +2,7 @@
 
 namespace FreeElephants\HexoNards\Board;
 
+use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 
 /**
@@ -21,6 +22,10 @@ class Tile
      * @var Castle
      */
     private $castle;
+    /**
+     * @var Army
+     */
+    private $army;
 
     public function __construct(Row $row, Column $column)
     {
@@ -58,5 +63,20 @@ class Tile
     public function getCastle(): Castle
     {
         return $this->castle;
+    }
+
+    public function hasArmy(): bool
+    {
+        return null !== $this->army;
+    }
+
+    public function &getArmy(): Army
+    {
+        return $this->army;
+    }
+
+    public function setArmy(Army $army)
+    {
+        $this->army = $army;
     }
 }
