@@ -2,6 +2,8 @@
 
 namespace FreeElephants\HexoNards\Game;
 
+use FreeElephants\HexoNards\Board\Tile;
+
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
@@ -16,10 +18,16 @@ class Army implements \Countable
      * @var int
      */
     private $numberOfUnits;
+    /**
+     * @var Tile
+     */
+    private $tile;
 
-    public function __construct(Player $owner, int $numberOfUnits)
+    public function __construct(Player $owner, Tile $tile, int $numberOfUnits)
     {
         $this->owner = $owner;
+        $this->tile = $tile;
+        $this->tile->setArmy($this);
         $this->numberOfUnits = $numberOfUnits;
     }
 
@@ -28,9 +36,12 @@ class Army implements \Countable
         return $this->numberOfUnits;
     }
 
-    public static function merge(Army $army, Army $anotherArmy): Army
+    public static function merge(Army &$army, Army &$anotherArmy): Army
     {
-        return new self($army->getOwner(), $army->numberOfUnits + $anotherArmy->numberOfUnits);
+        $newArmy = new self($army->getOwner(), $army->getTile(), $army->numberOfUnits + $anotherArmy->numberOfUnits);
+        $army = null;
+        $anotherArmy = null;
+        return $newArmy;
     }
 
     public function deduct(int $losses)
@@ -41,5 +52,15 @@ class Army implements \Countable
     public function getOwner(): Player
     {
         return $this->owner;
+    }
+
+    public function getTile(): Tile
+    {
+        return $this->tile;
+    }
+
+    public function setTile(Tile $newTile)
+    {
+        $this->tile = $newTile;
     }
 }

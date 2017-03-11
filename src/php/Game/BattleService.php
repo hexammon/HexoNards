@@ -2,7 +2,6 @@
 
 namespace FreeElephants\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\Tile;
 use FreeElephants\HexoNards\Exception\DomainException;
 
 /**
@@ -11,21 +10,28 @@ use FreeElephants\HexoNards\Exception\DomainException;
 class BattleService
 {
 
-    public function attack(Tile $assaulterTile, Tile $defenderTile)
+    public function attack(Army $assaulter, Army &$defender)
     {
-        $assaulterArmy = $assaulterTile->getArmy();
-        $defenderArmy = $defenderTile->getArmy();
-        $this->assertArmyOwnersNotSame($assaulterArmy, $defenderArmy);
-        $assaulterSize = count($assaulterArmy);
-        $defenderSize = count($defenderArmy);
+        $this->assertArmyOwnersNotSame($assaulter, $defender);
+        $assaulterTile = $assaulter->getTile();
+        $defenderTile = $defender->getTile();
+        $assaulterSize = count($assaulter);
+        $defenderSize = count($defender);
         $losses = ceil(min($assaulterSize, $defenderSize) / 2);
-        $assaulterArmy->deduct($losses);
-        $defenderArmy->deduct($losses);
+        if ($losses >= $defenderSize) {
+            $defender = null;
+            $defenderTile->setArmy($assaulter);
+            $assaulter->setTile($defenderTile);
+            $assaulterTile->resetArmy();
+        } else {
+            $defender->deduct($losses);
+        }
+        $assaulter->deduct($losses);
     }
 
-    private function assertArmyOwnersNotSame(Army $assaulterArmy, Army $defenderArmy)
+    private function assertArmyOwnersNotSame(Army $assaulter, Army $defender)
     {
-        if ($assaulterArmy->getOwner() === $defenderArmy->getOwner()) {
+        if ($assaulter->getOwner() === $defender->getOwner()) {
             throw new DomainException('Self attack detected. ');
         }
     }

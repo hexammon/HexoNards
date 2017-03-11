@@ -70,7 +70,7 @@ class Tile
         return null !== $this->army;
     }
 
-    public function &getArmy(): Army
+    public function getArmy(): Army
     {
         return $this->army;
     }
@@ -78,5 +78,10 @@ class Tile
     public function setArmy(Army $army)
     {
         $this->army = $army;
+    }
+
+    public function resetArmy()
+    {
+        $this->army = null;
     }
 }
