@@ -56,6 +56,49 @@ class BattleServiceTest extends AbstractTestCase
         $this->assertFalse($assaulterTile->hasArmy());
     }
 
+    public function testAttackWithDefenderCompleteVictory()
+    {
+        $assaulter = $this->createMock(Player::class);
+        $assaulterTile = $this->createTile();
+        $assaulterArmy = new Army($assaulter, $assaulterTile, 1);
+
+        $defender = $this->createMock(Player::class);
+        $defenderTile = $this->createTile();
+        $defenderArmy = new Army($defender, $defenderTile, 2);
+
+        $battleService = new BattleService();
+        $battleService->attack($assaulterArmy, $defenderArmy);
+
+        // check losses
+        $this->assertCount(1, $defenderArmy);
+        $this->assertNull($assaulterArmy);
+        // check positions after battle
+        $this->assertSame($defenderTile, $defenderArmy->getTile());
+        $this->assertFalse($assaulterTile->hasArmy());
+    }
+
+    public function testAttackBothAnnihilation()
+    {
+        $assaulter = $this->createMock(Player::class);
+        $assaulterTile = $this->createTile();
+        $assaulterArmy = new Army($assaulter, $assaulterTile, 1);
+
+        $defender = $this->createMock(Player::class);
+        $defenderTile = $this->createTile();
+        $defenderArmy = new Army($defender, $defenderTile, 1);
+
+        $battleService = new BattleService();
+        $battleService->attack($assaulterArmy, $defenderArmy);
+
+        // check that armies are empties
+        $this->assertNull($defenderArmy);
+        $this->assertNull($assaulterArmy);
+        // check that positions after battle is clear
+        $this->assertFalse($defenderTile->hasArmy());
+        $this->assertFalse($assaulterTile->hasArmy());
+    }
+
+
     public function testAttackSelfOwnedException()
     {
         $assaulter = $this->createMock(Player::class);
@@ -71,6 +114,5 @@ class BattleServiceTest extends AbstractTestCase
         $battleService = new BattleService();
         $this->expectException(DomainException::class);
         $battleService->attack($assaulterArmy, $defenderArmy);
-
     }
 }

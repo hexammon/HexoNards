@@ -44,6 +44,12 @@ class Army implements \Countable
         return $newArmy;
     }
 
+    public static function destroy(self &$army)
+    {
+        $army->getTile()->resetArmy();
+        $army = null;
+    }
+
     public function deduct(int $losses)
     {
         $this->numberOfUnits -= $losses;
@@ -61,6 +67,12 @@ class Army implements \Countable
 
     public function setTile(Tile $newTile)
     {
+        $this->tile = $newTile;
+    }
+
+    public function move(Tile $newTile)
+    {
+        $this->tile->resetArmy();
         $this->tile = $newTile;
     }
 }
