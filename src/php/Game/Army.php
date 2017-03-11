@@ -3,6 +3,7 @@
 namespace FreeElephants\HexoNards\Game;
 
 use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -65,14 +66,19 @@ class Army implements \Countable
         return $this->tile;
     }
 
-    public function setTile(Tile $newTile)
+    public function isSameOwner(Army $anotherArmy): bool
     {
-        $this->tile = $newTile;
+        return $this->owner === $anotherArmy->getOwner();
     }
 
     public function move(Tile $newTile)
     {
+        if ($newTile->hasArmy()) {
+            throw new MoveToOccupiedTileException();
+        }
+
         $this->tile->resetArmy();
         $this->tile = $newTile;
+        $newTile->setArmy($this);
     }
 }

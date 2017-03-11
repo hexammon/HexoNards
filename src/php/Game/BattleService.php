@@ -17,7 +17,9 @@ class BattleService
 
     public function attack(Army &$assaulter, Army &$defender)
     {
-        $this->assertArmyOwnersNotSame($assaulter, $defender);
+        if($assaulter->isSameOwner($defender)) {
+            throw new DomainException('Self attack detected. ');
+        }
 
         $assaulterSize = count($assaulter);
         $defenderSize = count($defender);
@@ -36,9 +38,10 @@ class BattleService
                 break;
 
             case self::ASSAULTER_WIN:
-                $assaulter->deduct($losses);
-                $assaulter->move($defender->getTile());
+                $newTile = $defender->getTile();
                 Army::destroy($defender);
+                $assaulter->move($newTile);
+                $assaulter->deduct($losses);
                 break;
 
             case self::DEFENDER_WIN:
@@ -47,14 +50,7 @@ class BattleService
                 break;
 
             default:
-                throw new DomainException('Unexpected battler result. ');
-        }
-    }
-
-    private function assertArmyOwnersNotSame(Army $assaulter, Army $defender)
-    {
-        if ($assaulter->getOwner() === $defender->getOwner()) {
-            throw new DomainException('Self attack detected. ');
+                throw new DomainException('Unexpected battler result. '); // @codeCoverageIgnore
         }
     }
 
