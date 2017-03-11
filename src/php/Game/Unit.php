@@ -24,9 +24,6 @@ class Unit
         $this->tile = $tile;
     }
 
-    /**
-     * @return Player
-     */
     public function getOwner(): Player
     {
         return $this->owner;

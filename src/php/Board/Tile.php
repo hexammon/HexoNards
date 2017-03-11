@@ -30,17 +30,11 @@ class Tile
         $this->column = $column;
     }
 
-    /**
-     * @return Row
-     */
     public function getRow(): Row
     {
         return $this->row;
     }
 
-    /**
-     * @return Column
-     */
     public function getColumn(): Column
     {
         return $this->column;
@@ -61,9 +55,6 @@ class Tile
         $this->castle = $castle;
     }
 
-    /**
-     * @return Castle
-     */
     public function getCastle(): Castle
     {
         return $this->castle;

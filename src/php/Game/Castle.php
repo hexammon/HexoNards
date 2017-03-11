@@ -29,17 +29,11 @@ class Castle
         $this->tile = $tile;
     }
 
-    /**
-     * @return Player
-     */
     public function getOwner(): Player
     {
         return $this->owner;
     }
 
-    /**
-     * @return Tile
-     */
     public function getTile(): Tile
     {
         return $this->tile;
