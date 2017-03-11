@@ -2,8 +2,6 @@
 
 namespace FreeElephants\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\Tile;
-
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
@@ -30,9 +28,9 @@ class Army implements \Countable
         return $this->numberOfUnits;
     }
 
-    public function join(Army $anotherArmy): Army
+    public static function merge(Army $army, Army $anotherArmy): Army
     {
-        return new self($this->owner, $this->numberOfUnits + $anotherArmy->numberOfUnits);
+        return new self($army->getOwner(), $army->numberOfUnits + $anotherArmy->numberOfUnits);
     }
 
     public function deduct(int $losses)
