@@ -9,13 +9,8 @@ use FreeElephants\HexoNards\Game\Player;
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class MoveArmy
+class MoveArmy implements PlayerActionInterface
 {
-
-    /**
-     * @var Player
-     */
-    private $player;
     /**
      * @var AbstractTile
      */
@@ -29,18 +24,17 @@ class MoveArmy
      */
     private $units;
 
-    public function __construct(Player $player, AbstractTile $source, AbstractTile $target, int $units = null)
+    public function __construct(AbstractTile $source, AbstractTile $target, int $units = null)
     {
-        $this->player = $player;
         $this->source = $source;
         $this->target = $target;
         $this->units = $units;
     }
 
-    public function execute()
+    public function execute(Player $player)
     {
         $army = $this->source->getArmy();
-        if($this->player !== $army->getOwner()) {
+        if($player !== $army->getOwner()) {
             throw new TouchForeignOwnException();
         }
 

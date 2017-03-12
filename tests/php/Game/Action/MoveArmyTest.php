@@ -24,9 +24,9 @@ class MoveArmyTest extends AbstractTestCase
         $army = new Army($player, $sourceTile, 20);
         $sourceTile->method('getArmy')->willReturn($army);
 
-        $command = new MoveArmy($player, $sourceTile, $targetTile, 10);
+        $command = new MoveArmy($sourceTile, $targetTile, 10);
 
-        $command->execute();
+        $command->execute($player);
 
         $this->assertSame($targetTile, $army->getTile());
     }
@@ -39,9 +39,9 @@ class MoveArmyTest extends AbstractTestCase
         $army = new Army($otherPlayer, $sourceTile, 20);
         $sourceTile->setArmy($army);
         $targetTile = $this->createTile();
-        $command = new MoveArmy($player, $sourceTile, $targetTile, 10);
+        $command = new MoveArmy($sourceTile, $targetTile, 10);
         $this->expectException(TouchForeignOwnException::class);
-        $command->execute();
+        $command->execute($player);
     }
 
 }
