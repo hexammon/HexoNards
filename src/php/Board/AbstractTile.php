@@ -8,7 +8,7 @@ use FreeElephants\HexoNards\Game\Castle;
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class Tile
+abstract class AbstractTile
 {
     /**
      * @var Row
@@ -29,10 +29,10 @@ class Tile
 
     public function __construct(Row $row, Column $column)
     {
-        $row->addTile($this);
         $this->row = $row;
-        $column->addTile($this);
         $this->column = $column;
+        $row->addTile($this);
+        $column->addTile($this);
     }
 
     public function getRow(): Row
@@ -84,4 +84,9 @@ class Tile
     {
         $this->army = null;
     }
+
+    /**
+     * @return array|static[]
+     */
+    abstract public function getNearestTiles(): array;
 }

@@ -2,7 +2,7 @@
 
 namespace FreeElephants\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 
 /**
@@ -16,11 +16,11 @@ class Castle
      */
     private $owner;
     /**
-     * @var Tile
+     * @var AbstractTile
      */
     private $tile;
 
-    public function __construct(Player $owner, Tile $tile)
+    public function __construct(Player $owner, AbstractTile $tile)
     {
         $this->owner = $owner;
         if($tile->hasCastle()) {
@@ -34,8 +34,23 @@ class Castle
         return $this->owner;
     }
 
-    public function getTile(): Tile
+    public function getTile(): AbstractTile
     {
         return $this->tile;
+    }
+
+    public function isUnderSiege(): bool
+    {
+        foreach ($this->getTile()->getNearestTiles() as $tile) {
+            if($tile->hasArmy()) {
+                $garrison = $this->getTile()->getArmy();
+                if($tile->getArmy()->isSameOwner($garrison)) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }

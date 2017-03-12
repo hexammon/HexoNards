@@ -2,7 +2,7 @@
 
 namespace FreeElephants\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
 
@@ -21,11 +21,11 @@ class Army implements \Countable
      */
     private $numberOfUnits;
     /**
-     * @var Tile
+     * @var AbstractTile
      */
     private $tile;
 
-    public function __construct(Player $owner, Tile $tile, int $numberOfUnits)
+    public function __construct(Player $owner, AbstractTile $tile, int $numberOfUnits)
     {
         $this->owner = $owner;
         $this->tile = $tile;
@@ -62,7 +62,7 @@ class Army implements \Countable
         return $this->owner;
     }
 
-    public function getTile(): Tile
+    public function getTile(): AbstractTile
     {
         return $this->tile;
     }
@@ -72,7 +72,7 @@ class Army implements \Countable
         return $this->owner === $anotherArmy->getOwner();
     }
 
-    public function move(Tile $newTile)
+    public function move(AbstractTile $newTile)
     {
         if ($newTile->hasArmy()) {
             throw new MoveToOccupiedTileException();

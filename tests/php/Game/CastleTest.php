@@ -2,7 +2,7 @@
 
 namespace FreeElephants\HexoNardsTests\Game;
 
-use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Board\Square\Tile;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 use FreeElephants\HexoNards\Game\Player;
@@ -31,5 +31,22 @@ class CastleTest extends \PHPUnit_Framework_TestCase
         $tile->method('hasCastle')->willReturn(true);
         $this->expectException(ConstructOnOccupiedTileException::class);
         new Castle($owner, $tile);
+    }
+
+    public function testIsUnderSiegeFalse()
+    {
+        $this->markTestIncomplete();
+        $owner = $this->createMock(Player::class);
+        $tile = $this->createMock(Tile::class);
+        $castle = new Castle($owner, $tile);
+        $this->assertFalse($castle->isUnderSiege());
+    }
+
+    public function testIsUnderSiegeTrue()
+    {
+        $owner = $this->createMock(Player::class);
+        $tile = $this->createMock(Tile::class);
+        $castle = new Castle($owner, $tile);
+        $this->assertTrue($castle->isUnderSiege());
     }
 }

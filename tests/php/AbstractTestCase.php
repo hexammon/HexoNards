@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNardsTests;
 
 use FreeElephants\HexoNards\Board\Column;
 use FreeElephants\HexoNards\Board\Row;
-use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Board\Square\Tile;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
