@@ -5,6 +5,7 @@ namespace FreeElephants\HexoNards\Game;
 use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
+use FreeElephants\HexoNardsTests\Game\Exception\TooMuchDistanceException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -76,6 +77,10 @@ class Army implements \Countable
     {
         if ($newTile->hasArmy()) {
             throw new MoveToOccupiedTileException();
+        }
+
+        if (false === in_array($newTile, $this->tile->getNearestTiles(), true)) {
+            throw new TooMuchDistanceException();
         }
 
         $this->tile->resetArmy();

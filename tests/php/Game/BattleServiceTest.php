@@ -2,6 +2,7 @@
 
 namespace FreeElephants\HexoNardsTests\Game;
 
+use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\BattleService;
@@ -38,11 +39,12 @@ class BattleServiceTest extends AbstractTestCase
     public function testAttackWithAssaulterCompleteVictory()
     {
         $assaulter = $this->createMock(Player::class);
-        $assaulterTile = $this->createTile();
+        $assaulterTile = $this->createMock(AbstractTile::class);
         $assaulterArmy = new Army($assaulter, $assaulterTile, 6);
 
         $defender = $this->createMock(Player::class);
         $defenderTile = $this->createTile();
+        $assaulterTile->method('getNearestTiles')->willReturn([$defenderTile]);
         $defenderArmy = new Army($defender, $defenderTile, 1);
 
         $battleService = new BattleService();

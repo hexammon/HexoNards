@@ -2,11 +2,13 @@
 
 namespace FreeElephants\HexoNardsTests\Game;
 
+use FreeElephants\HexoNards\Board\Square\Tile;
 use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
 use FreeElephants\HexoNards\Game\Player;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
+use FreeElephants\HexoNardsTests\Game\Exception\TooMuchDistanceException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -30,14 +32,26 @@ class ArmyTest extends AbstractTestCase
     public function testMove()
     {
         $owner = $this->createMock(Player::class);
-        $initialTile = $this->createTile();
-        $army = new Army($owner, $initialTile, 1);
-
+        $initialTile = $this->createMock(Tile::class);
         $newTile = $this->createTile();
+        $initialTile->method('getNearestTiles')->willReturn([$newTile]);
+
+        $army = new Army($owner, $initialTile, 1);
         $army->move($newTile);
 
         $this->assertSame($newTile, $army->getTile());
         $this->assertFalse($initialTile->hasArmy());
+    }
+
+    public function testMoveTooMuchDistanceException()
+    {
+        $owner = $this->createMock(Player::class);
+        $initialTile = $this->createTile(1, 1);
+        $army = new Army($owner, $initialTile, 1);
+
+        $newTile = $this->createTile(10, 10);
+        $this->expectException(TooMuchDistanceException::class);
+        $army->move($newTile);
     }
 
     public function testMoveOnOccupiedTileException()
