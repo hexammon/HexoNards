@@ -3,6 +3,7 @@
 namespace FreeElephants\HexoNardsTests\Game;
 
 use FreeElephants\HexoNards\Board\Square\Tile;
+use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 use FreeElephants\HexoNards\Game\Player;
@@ -35,10 +36,17 @@ class CastleTest extends \PHPUnit_Framework_TestCase
 
     public function testIsUnderSiegeFalse()
     {
-        $this->markTestIncomplete();
         $owner = $this->createMock(Player::class);
         $tile = $this->createMock(Tile::class);
+
+        $emptyTile = $this->createMock(Tile::class);
+        $emptyTile->method('hasArmy')->willReturn(false);
+        $tile->method('getNearestTiles')->willReturn([
+            $emptyTile
+        ]);
+
         $castle = new Castle($owner, $tile);
+
         $this->assertFalse($castle->isUnderSiege());
     }
 
@@ -46,7 +54,17 @@ class CastleTest extends \PHPUnit_Framework_TestCase
     {
         $owner = $this->createMock(Player::class);
         $tile = $this->createMock(Tile::class);
+        $enemyOccupiedTile = $this->createMock(Tile::class);
+        $enemyOccupiedTile->method('hasArmy')->willReturn(true);
+        $enemy = $this->createMock(Army::class);
+        $enemy->method('isSameOwner')->willReturn(false);
+        $enemyOccupiedTile->method('getArmy')->willReturn($enemy);
+        $tile->method('getNearestTiles')->willReturn([
+            $enemyOccupiedTile
+        ]);
+
         $castle = new Castle($owner, $tile);
+
         $this->assertTrue($castle->isUnderSiege());
     }
 }
