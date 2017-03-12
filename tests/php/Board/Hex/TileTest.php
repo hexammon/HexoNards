@@ -1,49 +1,23 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Board\Square;
+namespace FreeElephants\HexoNardsTests\Board\Hex;
 
 use FreeElephants\HexoNards\Board\Column;
+use FreeElephants\HexoNards\Board\Hex\Tile;
 use FreeElephants\HexoNards\Board\Row;
-use FreeElephants\HexoNards\Board\Square\Tile;
-use FreeElephants\HexoNards\Game\Castle;
+use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class TileTest extends \PHPUnit_Framework_TestCase
+class TileTest extends AbstractTestCase
 {
-
-    public function testConstructingAndGetters()
-    {
-        $row = new Row(1);
-        $column = new Column(2);
-
-        $tile = new Tile($row, $column);
-
-        $this->assertSame($row, $tile->getRow());
-        $this->assertSame($column, $tile->getColumn());
-        $this->assertCount(1, $row->getTiles());
-        $this->assertCount(1, $column->getTiles());
-        $this->assertSame('1.2', $tile->getCoordinates());
-    }
-
-    public function testSetCastle()
-    {
-        $tile = new Tile($this->createMock(Row::class), $this->createMock(Column::class));
-        $castle = $this->createMock(Castle::class);
-
-        $this->assertFalse($tile->hasCastle());
-        $tile->setCastle($castle);
-
-        $this->assertTrue($tile->hasCastle());
-        $this->assertSame($castle, $tile->getCastle());
-    }
 
     /*
      * test for tile 1.1
-     *       col1 | col2
-     * row1:  1.1   1.2
-     * row2:  2.1   2.2
+     *
+     *     1.1   1.2
+     * 2.1   2.2   2.3
      */
     public function testGetNearestTilesInLeftTopCorner()
     {
@@ -68,13 +42,12 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains($cornerTile, $nearestTiles);
     }
 
-
     /*
      * test for tile 2.2
-     *       col1 | col2 | col3
-     * row1:  1.1   1.2    1.3
-     * row2:  2.1   2.2    2.3
-     * row3:  3.1   3.2    3.3
+     *
+     *       1.1   1.2    1.3
+     *    2.1   2.2   2.3
+     * 3.1   3.2   3.3
      */
     public function testGetNearestTilesForSurrounded()
     {
@@ -103,15 +76,13 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $tile3_3 = new Tile($row3, $col3);
 
         $nearestTiles = $tile2_2->getNearestTiles();
-        $this->assertCount(8, $nearestTiles);
+        $this->assertCount(6, $nearestTiles);
         $this->assertArraySubset([
             $tile1_1,
             $tile1_2,
-            $tile1_3,
             $tile2_1,
             // exclude self
             $tile2_3,
-            $tile3_1,
             $tile3_2,
             $tile3_3,
         ], $nearestTiles);
@@ -120,10 +91,10 @@ class TileTest extends \PHPUnit_Framework_TestCase
 
     /*
      * test for tile 1.2
-     *       col1 | col2 | col3
-     * row1:  1.1   1.2    1.3
-     * row2:  2.1   2.2    2.3
-     * row3:  3.1   3.2    3.3
+     *
+     *       1.1   1.2    1.3
+     *    2.1   2.2   2.3
+     * 3.1   3.2   3.3
      */
     public function testGetNearestTilesTopEdgeCase()
     {
@@ -152,14 +123,11 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $tile3_3 = new Tile($row3, $col3);
 
         $nearestTiles = $tile1_2->getNearestTiles();
-        $this->assertCount(5, $nearestTiles);
-        $this->assertArraySubset([
-            $tile1_1,
-            $tile1_3,
-            $tile2_1,
-            $tile2_2,
-            $tile2_3,
-        ], $nearestTiles);
+        $this->assertCount(4, $nearestTiles);
+        $this->assertContains($tile1_1, $nearestTiles);
+        $this->assertContains($tile2_2, $nearestTiles);
+        $this->assertContains($tile2_3, $nearestTiles);
+        $this->assertContains($tile1_3, $nearestTiles);
         $this->assertNotContains($tile1_2, $nearestTiles);
     }
 }
