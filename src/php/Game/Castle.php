@@ -33,6 +33,7 @@ class Castle
             throw new ConstructOnOccupiedTileException('Tile is occupied by enemy');
         }
         $this->tile = $tile;
+        $this->tile->setCastle($this);
     }
 
     public function getOwner(): Player
