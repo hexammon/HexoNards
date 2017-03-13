@@ -11,7 +11,7 @@ use FreeElephants\HexoNards\Board\Square\Tile;
  */
 abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 {
-    protected function createTile(int $rowNumber = 1, int $colNumber = 1): Tile
+    protected function createTile(): Tile
     {
         $rowMock = $this->createMock(Row::class);
         $columnMock = $this->createMock(Column::class);
