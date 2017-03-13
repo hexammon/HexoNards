@@ -3,6 +3,7 @@
 namespace FreeElephants\HexoNards\Game;
 
 use FreeElephants\HexoNards\Board\AbstractTile;
+use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 
 /**
@@ -24,7 +25,12 @@ class Castle
     {
         $this->owner = $owner;
         if($tile->hasCastle()) {
-            throw new ConstructOnOccupiedTileException();
+            throw new ConstructOnOccupiedTileException('Castle already exists on this tile. ');
+        }
+        if(false === $tile->hasArmy()) {
+            throw new DomainException('Constructing castle without garrison. ');
+        } elseif($owner !== $tile->getArmy()->getOwner()) {
+            throw new ConstructOnOccupiedTileException('Tile is occupied by enemy');
         }
         $this->tile = $tile;
     }
