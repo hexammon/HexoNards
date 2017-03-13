@@ -32,6 +32,7 @@ class ReplenishArmyTest extends AbstractTestCase
         $army = new Army($otherPlayer, $this->createTile(), 10);
 
         $command = new ReplenishArmy($army, 2);
+
         $this->expectException(TouchForeignOwnException::class);
         $command->execute($player);
     }

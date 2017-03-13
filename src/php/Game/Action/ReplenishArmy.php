@@ -29,7 +29,7 @@ class ReplenishArmy implements PlayerActionInterface
 
     public function execute(Player $player)
     {
-        if($player !== $this->army->getOwner()) {
+        if ($player !== $this->army->getOwner()) {
             throw new TouchForeignOwnException();
         }
         $this->army->replenish($this->numberOfUnits);

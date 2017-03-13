@@ -53,4 +53,9 @@ class Castle
         }
         return true;
     }
+
+    public function getArmy(): Army
+    {
+        return $this->tile->getArmy();
+    }
 }
