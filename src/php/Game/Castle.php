@@ -13,24 +13,17 @@ class Castle
 {
 
     /**
-     * @var Player
-     */
-    private $owner;
-    /**
      * @var AbstractTile
      */
     private $tile;
 
-    public function __construct(Player $owner, AbstractTile $tile)
+    public function __construct(AbstractTile $tile)
     {
-        $this->owner = $owner;
         if($tile->hasCastle()) {
             throw new ConstructOnOccupiedTileException('Castle already exists on this tile. ');
         }
         if(false === $tile->hasArmy()) {
             throw new DomainException('Constructing castle without garrison. ');
-        } elseif($owner !== $tile->getArmy()->getOwner()) {
-            throw new ConstructOnOccupiedTileException('Tile is occupied by enemy');
         }
         $this->tile = $tile;
         $this->tile->setCastle($this);
@@ -38,7 +31,7 @@ class Castle
 
     public function getOwner(): Player
     {
-        return $this->owner;
+        return $this->getArmy()->getOwner();
     }
 
     public function getTile(): AbstractTile

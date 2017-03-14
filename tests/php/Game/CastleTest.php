@@ -24,7 +24,7 @@ class CastleTest extends \PHPUnit_Framework_TestCase
         $ownerArmy->method('getOwner')->willReturn($owner);
         $tile->method('getArmy')->willReturn($ownerArmy);
 
-        $castle = new Castle($owner, $tile);
+        $castle = new Castle($tile);
 
         $this->assertSame($owner, $castle->getOwner());
         $this->assertSame($tile, $castle->getTile());
@@ -32,39 +32,22 @@ class CastleTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructingOnOccupiedPlaceException()
     {
-        $owner = $this->createMock(Player::class);
         $tile = $this->createMock(Tile::class);
         $tile->method('hasCastle')->willReturn(true);
         $tile->method('hasArmy')->willReturn(true);
         $this->expectException(ConstructOnOccupiedTileException::class);
-        new Castle($owner, $tile);
+        new Castle($tile);
     }
 
 
     public function testConstructingOnTileWithoutArmyException()
     {
-        $owner = $this->createMock(Player::class);
         $tile = $this->createMock(Tile::class);
         $tile->method('hasCastle')->willReturn(false);
         $tile->method('hasArmy')->willReturn(false);
 
         $this->expectException(DomainException::class);
-        new Castle($owner, $tile);
-    }
-
-    public function testConstructingOnTileWithEnemyArmyException()
-    {
-        $owner = $this->createMock(Player::class);
-        $tile = $this->createMock(Tile::class);
-        $tile->method('hasCastle')->willReturn(false);
-        $tile->method('hasArmy')->willReturn(true);
-        $enemyArmy = $this->createMock(Army::class);
-        $otherPlayer = $this->createMock(Player::class);
-        $enemyArmy->method('getOwner')->willReturn($otherPlayer);
-        $tile->method('getArmy')->willReturn($enemyArmy);
-
-        $this->expectException(ConstructOnOccupiedTileException::class);
-        new Castle($owner, $tile);
+        new Castle($tile);
     }
 
     public function testIsUnderSiegeFalse()
@@ -82,7 +65,7 @@ class CastleTest extends \PHPUnit_Framework_TestCase
         $ownerArmy->method('getOwner')->willReturn($owner);
         $tile->method('getArmy')->willReturn($ownerArmy);
 
-        $castle = new Castle($owner, $tile);
+        $castle = new Castle($tile);
 
         $this->assertFalse($castle->isUnderSiege());
     }
@@ -104,7 +87,7 @@ class CastleTest extends \PHPUnit_Framework_TestCase
         $ownerArmy->method('getOwner')->willReturn($owner);
         $tile->method('getArmy')->willReturn($ownerArmy);
 
-        $castle = new Castle($owner, $tile);
+        $castle = new Castle($tile);
 
         $this->assertTrue($castle->isUnderSiege());
     }

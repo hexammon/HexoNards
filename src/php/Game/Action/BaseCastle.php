@@ -24,6 +24,6 @@ class BaseCastle implements PlayerActionInterface
 
     public function execute(Player $player)
     {
-        new Castle($player, $this->tile);
+        new Castle($this->tile);
     }
 }
