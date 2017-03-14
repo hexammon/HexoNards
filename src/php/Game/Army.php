@@ -106,4 +106,10 @@ class Army implements \Countable
     {
         return $this->destroyed;
     }
+
+    public function divide(int $units)
+    {
+        $this->numberOfUnits -= $units;
+        return new Army($this->owner, $this->tile, $units);
+    }
 }
