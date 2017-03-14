@@ -46,7 +46,7 @@ class Army implements \Countable
 
     public static function merge(Army &$army, Army &$anotherArmy): Army
     {
-        if(false === $army->isSameOwner($anotherArmy)) {
+        if (false === $army->isSameOwner($anotherArmy)) {
             throw new DomainException('Can not merge with enemy. ');
         }
         $newArmy = new self($army->getOwner(), $army->getTile(), $army->numberOfUnits + $anotherArmy->numberOfUnits);
@@ -101,6 +101,10 @@ class Army implements \Countable
     {
         if ($value <= 0) {
             throw new InvalidArgumentException('Value for replenish must be greater than 0. ');
+        }
+        $tile = $this->getTile();
+        if ($tile->hasCastle() && $tile->getCastle()->isUnderSiege()) {
+            throw new DomainException('Can not replenish garrison under siege. ');
         }
         $this->numberOfUnits += $value;
     }
