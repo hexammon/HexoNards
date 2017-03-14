@@ -4,6 +4,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -28,6 +29,9 @@ class MergeArmy implements PlayerActionInterface
 
     public function execute(Player $player)
     {
+        if(false === $this->sourceArmy->isSameOwner($this->targetArmy)) {
+            throw new InapplicableActionException('Can not merge with enemy. ');
+        }
         $targetTile = $this->targetArmy->getTile();
         $unionArmy = Army::merge($this->sourceArmy, $this->targetArmy);
         $targetTile->setArmy($unionArmy);

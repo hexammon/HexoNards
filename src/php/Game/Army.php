@@ -46,6 +46,9 @@ class Army implements \Countable
 
     public static function merge(Army &$army, Army &$anotherArmy): Army
     {
+        if(false === $army->isSameOwner($anotherArmy)) {
+            throw new DomainException('Can not merge with enemy. ');
+        }
         $newArmy = new self($army->getOwner(), $army->getTile(), $army->numberOfUnits + $anotherArmy->numberOfUnits);
         $army = null;
         $anotherArmy = null;
