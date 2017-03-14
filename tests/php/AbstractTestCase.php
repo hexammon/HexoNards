@@ -46,7 +46,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
         return $tiles;
     }
 
-    private function createTileSetList(int $numberOfSets, $tileSetClass)
+    private function createTileSetList(int $numberOfSets, $tileSetClass): array
     {
         $sets = [];
         for ($number = 1; $number <= $numberOfSets; $number++) {
