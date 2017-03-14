@@ -19,7 +19,7 @@ class MoveArmyTest extends AbstractTestCase
     {
         $player = $this->createMock(Player::class);
         $sourceTile = $this->createMock(Tile::class);
-        $targetTile = $this->createTile();
+        $targetTile = $this->createTileWithMocks();
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
         $army = new Army($player, $sourceTile, 20);
         $sourceTile->method('getArmy')->willReturn($army);
@@ -34,11 +34,11 @@ class MoveArmyTest extends AbstractTestCase
     public function testMoveForeignArmyException()
     {
         $player = $this->createMock(Player::class);
-        $sourceTile = $this->createTile();
+        $sourceTile = $this->createTileWithMocks();
         $otherPlayer = $this->createMock(Player::class);
         $army = new Army($otherPlayer, $sourceTile, 20);
         $sourceTile->setArmy($army);
-        $targetTile = $this->createTile();
+        $targetTile = $this->createTileWithMocks();
         $command = new MoveArmy($sourceTile, $targetTile, 10);
         $this->expectException(TouchForeignOwnException::class);
         $command->execute($player);

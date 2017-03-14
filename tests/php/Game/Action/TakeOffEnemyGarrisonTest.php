@@ -20,7 +20,7 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
     {
         $player = $this->createMock(Player::class);
         $otherPlayer = $this->createMock(Player::class);
-        $tile = $this->createTile();
+        $tile = $this->createTileWithMocks();
         $garrison = new Army($otherPlayer, $tile, 10);
         $castle = $this->createMock(Castle::class);
         $castle->method('getArmy')->willReturn($garrison);
@@ -36,7 +36,7 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
     {
         $player = $this->createMock(Player::class);
         $otherPlayer = $this->createMock(Player::class);
-        $tile = $this->createTile();
+        $tile = $this->createTileWithMocks();
         $garrison = new Army($otherPlayer, $tile, 10);
         $castle = $this->createMock(Castle::class);
         $castle->method('getArmy')->willReturn($garrison);
@@ -50,7 +50,7 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
     public function testExecuteOnSelfOwnCastleException()
     {
         $player = $this->createMock(Player::class);
-        $tile = $this->createTile();
+        $tile = $this->createTileWithMocks();
         $garrison = new Army($player, $tile, 10);
         $castle = $this->createMock(Castle::class);
         $castle->method('getArmy')->willReturn($garrison);

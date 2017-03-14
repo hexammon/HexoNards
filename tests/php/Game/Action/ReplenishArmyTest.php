@@ -17,7 +17,7 @@ class ReplenishArmyTest extends AbstractTestCase
     public function testExecuteSuccess()
     {
         $player = $this->createMock(Player::class);
-        $army = new Army($player, $this->createTile(), 10);
+        $army = new Army($player, $this->createTileWithMocks(), 10);
 
         $command = new ReplenishArmy($army, 2);
         $command->execute($player);
@@ -29,7 +29,7 @@ class ReplenishArmyTest extends AbstractTestCase
     {
         $player = $this->createMock(Player::class);
         $otherPlayer = $this->createMock(Player::class);
-        $army = new Army($otherPlayer, $this->createTile(), 10);
+        $army = new Army($otherPlayer, $this->createTileWithMocks(), 10);
 
         $command = new ReplenishArmy($army, 2);
 

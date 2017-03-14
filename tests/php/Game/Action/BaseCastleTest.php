@@ -16,7 +16,7 @@ class BaseCastleTest extends AbstractTestCase
     public function testExecuteSuccess()
     {
         $player = $this->createMock(Player::class);
-        $tile = $this->createTile();
+        $tile = $this->createTileWithMocks();
         $garrison = $this->createMock(Army::class);
         $garrison->method('getOwner')->willReturn($player);
         $tile->setArmy($garrison);

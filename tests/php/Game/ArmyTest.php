@@ -19,8 +19,8 @@ class ArmyTest extends AbstractTestCase
     public function testMerge()
     {
         $owner = $this->createMock(Player::class);
-        $army = new Army($owner, $this->createTile(), 1);
-        $anotherArmy = new Army($owner, $this->createTile(), 2);
+        $army = new Army($owner, $this->createTileWithMocks(), 1);
+        $anotherArmy = new Army($owner, $this->createTileWithMocks(), 2);
 
         $newArmy = Army::merge($army, $anotherArmy);
 
@@ -33,7 +33,7 @@ class ArmyTest extends AbstractTestCase
     {
         $owner = $this->createMock(Player::class);
         $initialTile = $this->createMock(Tile::class);
-        $newTile = $this->createTile();
+        $newTile = $this->createTileWithMocks();
         $initialTile->method('getNearestTiles')->willReturn([$newTile]);
 
         $army = new Army($owner, $initialTile, 1);
@@ -46,10 +46,10 @@ class ArmyTest extends AbstractTestCase
     public function testMoveTooMuchDistanceException()
     {
         $owner = $this->createMock(Player::class);
-        $initialTile = $this->createTile(1, 1);
+        $initialTile = $this->createTileWithMocks();
         $army = new Army($owner, $initialTile, 1);
 
-        $newTile = $this->createTile(10, 10);
+        $newTile = $this->createTileWithMocks();
         $this->expectException(TooMuchDistanceException::class);
         $army->move($newTile);
     }
@@ -57,10 +57,10 @@ class ArmyTest extends AbstractTestCase
     public function testMoveOnOccupiedTileException()
     {
         $owner = $this->createMock(Player::class);
-        $initialTile = $this->createTile();
+        $initialTile = $this->createTileWithMocks();
         $army = new Army($owner, $initialTile, 1);
 
-        $newTile = $this->createTile();
+        $newTile = $this->createTileWithMocks();
         $newTile->setArmy($this->createMock(Army::class));
         $this->expectException(MoveToOccupiedTileException::class);
         $army->move($newTile);
@@ -69,7 +69,7 @@ class ArmyTest extends AbstractTestCase
     public function testReplenish()
     {
         $owner = $this->createMock(Player::class);
-        $army = new Army($owner, $this->createTile(), 1);
+        $army = new Army($owner, $this->createTileWithMocks(), 1);
 
         $army->replenish(2);
 
@@ -79,7 +79,7 @@ class ArmyTest extends AbstractTestCase
     public function testReplenishNegativeValueException()
     {
         $owner = $this->createMock(Player::class);
-        $army = new Army($owner, $this->createTile(), 1);
+        $army = new Army($owner, $this->createTileWithMocks(), 1);
         $this->expectException(InvalidArgumentException::class);
         $army->replenish(-2);
     }
