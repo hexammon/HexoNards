@@ -3,6 +3,7 @@
 namespace FreeElephants\HexoNards\Game;
 
 use FreeElephants\HexoNards\Board\Board;
+use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -32,5 +33,10 @@ class Game
     public function getActivePlayer(): Player
     {
         return $this->activePlayer;
+    }
+
+    public function invoke(PlayerActionInterface $command)
+    {
+        $command->execute($this->activePlayer);
     }
 }
