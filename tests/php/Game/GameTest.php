@@ -5,7 +5,9 @@ namespace FreeElephants\HexoNardsTests\Game;
 use FreeElephants\HexoNards\Board\Board;
 use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
 use FreeElephants\HexoNards\Game\Game;
+use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
 use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\Random\RandomInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -19,10 +21,13 @@ class GameTest extends AbstractTestCase
         $player1 = $this->createMock(Player::class);
         $player2 = $this->createMock(Player::class);
         $board = $this->createMock(Board::class);
+        $movesGenerator = $this->createMock(MoveGeneratorInterface::class);
+        $movesGenerator->method('generate')->willReturn(1);
+
         $game = new Game([
             $player1,
             $player2
-        ], $board);
+        ], $board, $movesGenerator);
 
         $this->assertSame($player1, $game->getActivePlayer());
     }
@@ -32,16 +37,20 @@ class GameTest extends AbstractTestCase
         $player1 = $this->createMock(Player::class);
         $player2 = $this->createMock(Player::class);
         $board = $this->createMock(Board::class);
+        $movesGenerator = $this->createMock(MoveGeneratorInterface::class);
+        $movesGenerator->method('generate')->willReturn(1);
         $game = new Game([
             $player1,
             $player2
-        ], $board);
+        ], $board, $movesGenerator);
 
         $command = $this->createMock(PlayerActionInterface::class);
         $command->expects($commandSpy = $this->any())->method('execute');
         $game->invoke($command);
+
         $this->assertSame(1, $commandSpy->getInvocationCount());
         $this->assertSame($player1, $commandSpy->getInvocations()[0]->parameters[0]);
+        $this->assertSame($player2, $game->getActivePlayer());
     }
 
 

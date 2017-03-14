@@ -4,6 +4,8 @@ namespace FreeElephants\HexoNards\Game;
 
 use FreeElephants\HexoNards\Board\Board;
 use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
+use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
+use FreeElephants\HexoNards\Game\Move\MovesCounter;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -18,25 +20,22 @@ class Game
      * @var Board
      */
     private $board;
-    /**
-     * @var Player
-     */
-    private $activePlayer;
 
-    public function __construct(array $players, Board $board)
+    public function __construct(array $players, Board $board, MoveGeneratorInterface $moveGenerator)
     {
         $this->players = $players;
-        $this->activePlayer = $this->players[0];
         $this->board = $board;
+        $this->moveCounter = new MovesCounter($moveGenerator, new \ArrayIterator($players));
     }
 
     public function getActivePlayer(): Player
     {
-        return $this->activePlayer;
+        return $this->moveCounter->getCurrent();
     }
 
     public function invoke(PlayerActionInterface $command)
     {
-        $command->execute($this->activePlayer);
+        $command->execute($this->getActivePlayer());
+        $this->moveCounter->tick();
     }
 }
