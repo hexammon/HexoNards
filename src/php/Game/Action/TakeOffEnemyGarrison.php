@@ -5,6 +5,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 use FreeElephants\HexoNardsTests\Game\Exception\AttackItSelfException;
 
 /**
@@ -32,6 +33,11 @@ class TakeOffEnemyGarrison implements PlayerActionInterface
         if($player === $this->castle->getOwner()) {
             throw new AttackItSelfException();
         }
-        $this->castle->getArmy()->deduct(1);
+
+        $garrison = $this->castle->getArmy();
+        if(1 === count($garrison)) {
+            throw new InapplicableActionException('Cannot deducy last unit in garrison, castle should be assaulted. ');
+        }
+        $garrison->deduct(1);
     }
 }

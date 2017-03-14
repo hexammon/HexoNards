@@ -8,6 +8,7 @@ use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Player;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
+use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 use FreeElephants\HexoNardsTests\Game\Exception\AttackItSelfException;
 
 /**
@@ -30,6 +31,21 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
         $command->execute($player);
 
         $this->assertCount(9, $garrison);
+    }
+
+    public function testExecuteOnLastGarrisonUnitShouldBeAssaulted()
+    {
+        $player = $this->createMock(Player::class);
+        $otherPlayer = $this->createMock(Player::class);
+        $tile = $this->createTileWithMocks();
+        $garrison = new Army($otherPlayer, $tile, 1);
+        $castle = $this->createMock(Castle::class);
+        $castle->method('getArmy')->willReturn($garrison);
+        $castle->method('isUnderSiege')->willReturn(true);
+
+        $command = new TakeOffEnemyGarrison($castle);
+        $this->expectException(InapplicableActionException::class);
+        $command->execute($player);
     }
 
     public function testExecuteOnNotBesieged()
@@ -60,6 +76,5 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
         $command = new TakeOffEnemyGarrison($castle);
         $this->expectException(AttackItSelfException::class);
         $command->execute($player);
-
     }
 }
