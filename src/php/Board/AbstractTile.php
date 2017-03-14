@@ -2,12 +2,13 @@
 
 namespace FreeElephants\HexoNards\Board;
 
+use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class Tile
+abstract class AbstractTile
 {
     /**
      * @var Row
@@ -21,13 +22,17 @@ class Tile
      * @var Castle
      */
     private $castle;
+    /**
+     * @var Army
+     */
+    private $army;
 
     public function __construct(Row $row, Column $column)
     {
-        $row->addTile($this);
         $this->row = $row;
-        $column->addTile($this);
         $this->column = $column;
+        $row->addTile($this);
+        $column->addTile($this);
     }
 
     public function getRow(): Row
@@ -59,4 +64,29 @@ class Tile
     {
         return $this->castle;
     }
+
+    public function hasArmy(): bool
+    {
+        return null !== $this->army;
+    }
+
+    public function getArmy(): Army
+    {
+        return $this->army;
+    }
+
+    public function setArmy(Army $army)
+    {
+        $this->army = $army;
+    }
+
+    public function resetArmy()
+    {
+        $this->army = null;
+    }
+
+    /**
+     * @return array|static[]
+     */
+    abstract public function getNearestTiles(): array;
 }

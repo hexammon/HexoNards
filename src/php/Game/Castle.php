@@ -2,7 +2,8 @@
 
 namespace FreeElephants\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\Tile;
+use FreeElephants\HexoNards\Board\AbstractTile;
+use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 
 /**
@@ -12,30 +13,49 @@ class Castle
 {
 
     /**
-     * @var Player
-     */
-    private $owner;
-    /**
-     * @var Tile
+     * @var AbstractTile
      */
     private $tile;
 
-    public function __construct(Player $owner, Tile $tile)
+    public function __construct(AbstractTile $tile)
     {
-        $this->owner = $owner;
         if($tile->hasCastle()) {
-            throw new ConstructOnOccupiedTileException();
+            throw new ConstructOnOccupiedTileException('Castle already exists on this tile. ');
+        }
+        if(false === $tile->hasArmy()) {
+            throw new DomainException('Constructing castle without garrison. ');
         }
         $this->tile = $tile;
+        $this->tile->setCastle($this);
     }
 
     public function getOwner(): Player
     {
-        return $this->owner;
+        return $this->getArmy()->getOwner();
     }
 
-    public function getTile(): Tile
+    public function getTile(): AbstractTile
     {
         return $this->tile;
+    }
+
+    public function isUnderSiege(): bool
+    {
+        foreach ($this->getTile()->getNearestTiles() as $tile) {
+            if($tile->hasArmy()) {
+                $garrison = $this->getTile()->getArmy();
+                if($tile->getArmy()->isSameOwner($garrison)) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function getArmy(): Army
+    {
+        return $this->tile->getArmy();
     }
 }

@@ -5,37 +5,33 @@ namespace FreeElephants\HexoNards\Board;
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class Row
+class Row extends AbstractTileSet
 {
 
-    /**
-     * @var Tile[]
-     */
-    private $tiles = [];
-
-    /**
-     * @var int
-     */
-    private $number;
-
-    public function __construct(int $number)
+    public function addTile(AbstractTile $tile)
     {
-        $this->number = $number;
+        $this->tiles[$tile->getColumn()->getNumber()] = $tile;
     }
 
-    public function addTile(Tile $tile)
+    public function setNext(Row $row)
     {
-        $this->tiles[] = $tile;
+        $this->next = $row;
+        $row->previous = $this;
     }
 
-    public function getTiles()
+    public function getNext(): Row
     {
-        return $this->tiles;
+        return $this->next;
     }
 
-    public function getNumber(): int
+    public function getPrevious(): Row
     {
-        return $this->number;
+        return $this->previous;
+    }
+
+    public function getTile(Column $column): AbstractTile
+    {
+        return $this->tiles[$column->getNumber()];
     }
 
 }
