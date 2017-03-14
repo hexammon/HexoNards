@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Random;
+namespace FreeElephants\HexoNardsTests\Game\Move\Random;
 
-use FreeElephants\HexoNards\Game\Random\TwoDice;
+use FreeElephants\HexoNards\Game\Move\Random\TwoDice;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**

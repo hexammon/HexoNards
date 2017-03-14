@@ -28,12 +28,11 @@ class MovesCounter implements \Countable
 
     public function tick()
     {
-        if(0 > $this->moves) {
-            $this->moves--;
-        } else {
+        $this->moves--;
+        if (0 === $this->moves) {
             $this->moves = $this->generator->generate();
             $this->sequenceToSwitch->next();
-            if(false === $this->sequenceToSwitch->valid()) {
+            if (false === $this->sequenceToSwitch->valid()) {
                 $this->sequenceToSwitch->rewind();
             }
         }

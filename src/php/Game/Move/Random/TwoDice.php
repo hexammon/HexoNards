@@ -1,6 +1,6 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Random;
+namespace FreeElephants\HexoNards\Game\Move\Random;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

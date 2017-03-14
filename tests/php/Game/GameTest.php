@@ -7,7 +7,6 @@ use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
 use FreeElephants\HexoNards\Game\Game;
 use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
 use FreeElephants\HexoNards\Game\Player;
-use FreeElephants\HexoNards\Game\Random\RandomInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
