@@ -28,6 +28,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      * 1.1 => Tile,
      * 1.2 => Tile
      * 2.1 => Tile
+     * @return AbstractTile[]
      */
     protected function createGrid(int $height, int $width, $tileClassName = Tile::class): array
     {

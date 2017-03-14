@@ -43,8 +43,13 @@ class MoveArmy implements PlayerActionInterface
         }
 
         if ($this->units !== $army->count()) {
-            $remaining = $army->divide($army->count() - $this->units);
+            $army->divide($army->count() - $this->units);
         }
+
+        if ($this->target->hasArmy()) {
+            throw new InapplicableActionException('Can not move army to not empty tile. ');
+        }
+
         $army->move($this->target);
     }
 }

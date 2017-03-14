@@ -69,6 +69,23 @@ class MoveArmyTest extends AbstractTestCase
         $command->execute($player);
     }
 
+    public function testMoveOnTileWithAnotherArmyException()
+    {
+        $player = $this->createMock(Player::class);
+        $sourceTile = $this->createMock(Tile::class);
+        $targetTile = $this->createTileWithMocks();
+        $targetArmy = new Army($player, $targetTile, 10);
+        $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
+        $sourceTile->expects($sourceTileSpy = $this->any())->method('setArmy');
+        $army = new Army($player, $sourceTile, 20);
+        $sourceTile->method('getArmy')->willReturn($army);
+
+        $command = new MoveArmy($sourceTile, $targetTile, 15);
+        $this->expectException(InapplicableActionException::class);
+        $command->execute($player);
+
+    }
+
     public function testMoveLastUnitFromCastleException()
     {
         $player = $this->createMock(Player::class);
