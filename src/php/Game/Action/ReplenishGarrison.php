@@ -9,7 +9,7 @@ use FreeElephants\HexoNards\Game\PlayerInterface;
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class ReplenishArmy implements PlayerActionInterface
+class ReplenishGarrison implements PlayerActionInterface
 {
 
     /**

@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - AttackEnemy action. 
 
 ### Changed
-- Player class to PlayerInterface.
+- Rename Player class to PlayerInterface.
+- Rename ReplenishArmy action to ReplenishGarrison. 
+- Rename BaseCastle action to BuildCastle.  
 
 ## 1.0.0-alpha - 2017-03-19
 ### Added

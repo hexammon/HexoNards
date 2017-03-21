@@ -9,7 +9,7 @@ use FreeElephants\HexoNards\Game\PlayerInterface;
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class BaseCastle implements PlayerActionInterface
+class BuildCastle implements PlayerActionInterface
 {
 
     /**
