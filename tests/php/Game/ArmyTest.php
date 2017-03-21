@@ -8,7 +8,7 @@ use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 use FreeElephants\HexoNardsTests\Game\Exception\TooMuchDistanceException;
 
@@ -20,7 +20,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testMerge()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $army = new Army($owner, $this->createTileWithMocks(), 1);
         $anotherArmy = new Army($owner, $this->createTileWithMocks(), 2);
 
@@ -33,8 +33,8 @@ class ArmyTest extends AbstractTestCase
 
     public function testMergeWithEnemy()
     {
-        $owner = $this->createMock(Player::class);
-        $enemy = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
+        $enemy = $this->createMock(PlayerInterface::class);
         $army = new Army($owner, $this->createTileWithMocks(), 1);
         $anotherArmy = new Army($enemy, $this->createTileWithMocks(), 2);
 
@@ -44,7 +44,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testMove()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $initialTile = $this->createMock(Tile::class);
         $newTile = $this->createTileWithMocks();
         $initialTile->method('getNearestTiles')->willReturn([$newTile]);
@@ -58,7 +58,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testMoveTooMuchDistanceException()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $initialTile = $this->createTileWithMocks();
         $army = new Army($owner, $initialTile, 1);
 
@@ -69,7 +69,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testMoveOnOccupiedTileException()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $initialTile = $this->createTileWithMocks();
         $army = new Army($owner, $initialTile, 1);
 
@@ -81,7 +81,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testReplenish()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $army = new Army($owner, $this->createTileWithMocks(), 1);
 
         $army->replenish(2);
@@ -91,7 +91,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testReplenishInSiegeException()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $castle = $this->createMock(Castle::class);
         $castle->method('isUnderSiege')->willReturn(true);
         $tile = $this->createTileWithMocks();
@@ -105,7 +105,7 @@ class ArmyTest extends AbstractTestCase
 
     public function testReplenishNegativeValueException()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $army = new Army($owner, $this->createTileWithMocks(), 1);
         $this->expectException(InvalidArgumentException::class);
         $army->replenish(-2);

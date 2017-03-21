@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -22,7 +22,7 @@ class BaseCastle implements PlayerActionInterface
         $this->tile = $tile;
     }
 
-    public function execute(Player $player)
+    public function execute(PlayerInterface $player)
     {
         new Castle($this->tile);
     }

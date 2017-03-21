@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -27,7 +27,7 @@ class AssaultCastle implements PlayerActionInterface
         $this->army = $army;
     }
 
-    public function execute(Player $player)
+    public function execute(PlayerInterface $player)
     {
         $defenderArmy = $this->castle->getArmy();
         Army::destroy($defenderArmy);

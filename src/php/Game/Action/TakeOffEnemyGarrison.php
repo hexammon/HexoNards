@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 use FreeElephants\HexoNardsTests\Game\Exception\AttackItSelfException;
 
@@ -24,7 +24,7 @@ class TakeOffEnemyGarrison implements PlayerActionInterface
         $this->castle = $castle;
     }
 
-    public function execute(Player $player)
+    public function execute(PlayerInterface $player)
     {
         if(false === $this->castle->isUnderSiege()) {
             throw new DomainException('Castle not under siege. ');

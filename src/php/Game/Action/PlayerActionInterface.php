@@ -2,7 +2,7 @@
 
 namespace FreeElephants\HexoNards\Game\Action;
 
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -10,5 +10,5 @@ use FreeElephants\HexoNards\Game\Player;
 interface PlayerActionInterface
 {
 
-    public function execute(Player $player);
+    public function execute(PlayerInterface $player);
 }

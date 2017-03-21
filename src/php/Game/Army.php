@@ -15,7 +15,7 @@ class Army implements \Countable
 {
 
     /**
-     * @var Player
+     * @var PlayerInterface
      */
     private $owner;
     /**
@@ -31,7 +31,7 @@ class Army implements \Countable
      */
     private $destroyed = false;
 
-    public function __construct(Player $owner, AbstractTile $tile, int $numberOfUnits)
+    public function __construct(PlayerInterface $owner, AbstractTile $tile, int $numberOfUnits)
     {
         $this->owner = $owner;
         $this->tile = $tile;
@@ -67,7 +67,7 @@ class Army implements \Countable
         $this->numberOfUnits -= $losses;
     }
 
-    public function getOwner(): Player
+    public function getOwner(): PlayerInterface
     {
         return $this->owner;
     }

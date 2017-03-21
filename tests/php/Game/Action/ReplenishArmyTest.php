@@ -5,7 +5,7 @@ namespace FreeElephants\HexoNardsTests\Game\Action;
 use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
 use FreeElephants\HexoNards\Game\Action\ReplenishArmy;
 use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -16,7 +16,7 @@ class ReplenishArmyTest extends AbstractTestCase
 
     public function testExecuteSuccess()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $army = new Army($player, $this->createTileWithMocks(), 10);
 
         $command = new ReplenishArmy($army, 2);
@@ -27,8 +27,8 @@ class ReplenishArmyTest extends AbstractTestCase
 
     public function testReplenishForeignArmyException()
     {
-        $player = $this->createMock(Player::class);
-        $otherPlayer = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
+        $otherPlayer = $this->createMock(PlayerInterface::class);
         $army = new Army($otherPlayer, $this->createTileWithMocks(), 10);
 
         $command = new ReplenishArmy($army, 2);

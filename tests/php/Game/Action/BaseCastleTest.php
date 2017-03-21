@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNardsTests\Game\Action;
 
 use FreeElephants\HexoNards\Game\Action\BaseCastle;
 use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -15,7 +15,7 @@ class BaseCastleTest extends AbstractTestCase
 
     public function testExecuteSuccess()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $tile = $this->createTileWithMocks();
         $garrison = $this->createMock(Army::class);
         $garrison->method('getOwner')->willReturn($player);

@@ -7,7 +7,7 @@ use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -17,7 +17,7 @@ class CastleTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructingAndGetters()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $tile = $this->createMock(Tile::class);
         $tile->method('hasArmy')->willReturn(true);
         $ownerArmy = $this->createMock(Army::class);
@@ -52,7 +52,7 @@ class CastleTest extends \PHPUnit_Framework_TestCase
 
     public function testIsUnderSiegeFalse()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $tile = $this->createMock(Tile::class);
 
         $emptyTile = $this->createMock(Tile::class);
@@ -72,7 +72,7 @@ class CastleTest extends \PHPUnit_Framework_TestCase
 
     public function testIsUnderSiegeTrue()
     {
-        $owner = $this->createMock(Player::class);
+        $owner = $this->createMock(PlayerInterface::class);
         $tile = $this->createMock(Tile::class);
         $enemyOccupiedTile = $this->createMock(Tile::class);
         $enemyOccupiedTile->method('hasArmy')->willReturn(true);

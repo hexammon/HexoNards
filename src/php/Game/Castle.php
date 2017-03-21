@@ -29,7 +29,7 @@ class Castle
         $this->tile->setCastle($this);
     }
 
-    public function getOwner(): Player
+    public function getOwner(): PlayerInterface
     {
         return $this->getArmy()->getOwner();
     }

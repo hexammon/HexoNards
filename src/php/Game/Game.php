@@ -13,7 +13,7 @@ use FreeElephants\HexoNards\Game\Move\MovesCounter;
 class Game
 {
     /**
-     * @var array|Player[]
+     * @var array|PlayerInterface[]
      */
     private $players;
     /**
@@ -28,7 +28,7 @@ class Game
         $this->moveCounter = new MovesCounter($moveGenerator, new \ArrayIterator($players));
     }
 
-    public function getActivePlayer(): Player
+    public function getActivePlayer(): PlayerInterface
     {
         return $this->moveCounter->getCurrent();
     }

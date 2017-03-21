@@ -6,7 +6,7 @@ use FreeElephants\HexoNards\Board\Board;
 use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
 use FreeElephants\HexoNards\Game\Game;
 use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -17,8 +17,8 @@ class GameTest extends AbstractTestCase
 
     public function testGetActivePlayer()
     {
-        $player1 = $this->createMock(Player::class);
-        $player2 = $this->createMock(Player::class);
+        $player1 = $this->createMock(PlayerInterface::class);
+        $player2 = $this->createMock(PlayerInterface::class);
         $board = $this->createMock(Board::class);
         $movesGenerator = $this->createMock(MoveGeneratorInterface::class);
         $movesGenerator->method('generate')->willReturn(1);
@@ -33,8 +33,8 @@ class GameTest extends AbstractTestCase
 
     public function testInvoke()
     {
-        $player1 = $this->createMock(Player::class);
-        $player2 = $this->createMock(Player::class);
+        $player1 = $this->createMock(PlayerInterface::class);
+        $player2 = $this->createMock(PlayerInterface::class);
         $board = $this->createMock(Board::class);
         $movesGenerator = $this->createMock(MoveGeneratorInterface::class);
         $movesGenerator->method('generate')->willReturn(1);
