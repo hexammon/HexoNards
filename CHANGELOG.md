@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - AttackEnemy action. 
+- BoardBuilder. 
+- Basic class Board API implementation.  
 
 ### Changed
 - Rename Player class to PlayerInterface.
