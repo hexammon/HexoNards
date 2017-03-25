@@ -9,5 +9,13 @@ use FreeElephants\HexoNards\Game\Game;
  */
 interface InitialSettingInterface
 {
+
+    /**
+     * @return array|int[]
+     */
+    public function getSupportedNumberOfPlayers(): array;
+
+    public function isSupportedNumberOfPlayers(int $numberOfPlayers): bool;
+
     public function arrangePieces(Game $game);
 }
