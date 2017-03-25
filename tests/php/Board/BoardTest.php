@@ -16,7 +16,7 @@ class BoardTest extends AbstractTestCase
     {
         $tile = $this->createTileWithMocks();
 
-        $board = new Board(Board::TYPE_HEX, ['1.1' => $tile]);
+        $board = new Board(Board::TYPE_HEX, ['1.1' => $tile], [], []);
         $actual = $board->getTileByCoordinates('1.1');
 
         $this->assertSame($actual, $tile);
@@ -24,7 +24,7 @@ class BoardTest extends AbstractTestCase
 
     public function testGetTileByCoordinatesOutOfBoundsException()
     {
-        $board = new Board(Board::TYPE_HEX, []);
+        $board = new Board(Board::TYPE_HEX, [], [], []);
 
         $this->expectException(TileOutOfBoundsException::class);
 

@@ -19,23 +19,27 @@ class Board
      */
     private $rows;
     /**
-     * @var array|Column
-     */
-    private $cols;
-    /**
      * @var array|AbstractTile[]
      */
     private $tiles;
+    /**
+     * @var array
+     */
+    private $columns;
 
     /**
      * Board constructor.
      * @param string $type
      * @param array|AbstractTile[] $tiles
+     * @param array|Row[] $rows
+     * @param array|Column[] $columns
      */
-    public function __construct(string $type, array $tiles)
+    public function __construct(string $type, array $tiles, array $rows, array $columns)
     {
         $this->type = $type;
         $this->tiles = $tiles;
+        $this->rows = $rows;
+        $this->columns = $columns;
     }
 
     public function getType(): string
@@ -59,5 +63,15 @@ class Board
 
         throw new TileOutOfBoundsException(sprintf('Tile with coordinates %s does not exists on this board. ',
             $coordinates));
+    }
+
+    public function getFirstRow(): Row
+    {
+        return $this->rows[1];
+    }
+
+    public function getLastRow(): Row
+    {
+        return $this->rows[count($this->rows)];
     }
 }

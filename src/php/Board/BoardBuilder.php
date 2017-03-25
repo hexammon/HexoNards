@@ -24,8 +24,8 @@ class BoardBuilder
             default:
                 throw new UnknownBoardTypeException();
         }
-        $tiles = $this->createGrid($numberOfRows, $numberOfCols, $tileClassName);
-        return new Board($type, $tiles);
+        list($tiles, $rows, $columns) = $this->createGrid($numberOfRows, $numberOfCols, $tileClassName);
+        return new Board($type, $tiles, $rows, $columns);
     }
 
     protected function createGrid(int $numberOfRows, int $numberOfCols, string $tileClassName): array
@@ -41,7 +41,7 @@ class BoardBuilder
             }
         }
 
-        return $tiles;
+        return [$tiles, $rows, $columns];
     }
 
     private function createTileSetList(int $numberOfSets, string $tileSetClass)

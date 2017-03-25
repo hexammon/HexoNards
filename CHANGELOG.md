@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - AttackEnemy action. 
 - BoardBuilder. 
-- Basic class Board API implementation.  
+- Basic class Board API implementation. 
+- InitialSetting implementation. 
 
 ### Changed
 - Rename Player class to PlayerInterface.
 - Rename ReplenishArmy action to ReplenishGarrison. 
-- Rename BaseCastle action to BuildCastle.  
+- Rename BaseCastle action to BuildCastle.
+- Board constructor expects rows and columns. 
 
 ## 1.0.0-alpha - 2017-03-19
 ### Added

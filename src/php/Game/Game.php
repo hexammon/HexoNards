@@ -38,4 +38,14 @@ class Game
         $command->execute($this->getActivePlayer());
         $this->moveCounter->tick();
     }
+
+    public function getPlayers(): array
+    {
+        return $this->players;
+    }
+
+    public function getBoard(): Board
+    {
+        return $this->board;
+    }
 }
