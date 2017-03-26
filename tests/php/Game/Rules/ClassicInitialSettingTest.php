@@ -68,6 +68,5 @@ class ClassicInitialSettingTest extends AbstractTestCase
         ]);
         $this->expectException(UnsupportedConfigurationException::class);
         $initialSettingService->arrangePieces($game);
-
     }
 }

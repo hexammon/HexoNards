@@ -30,4 +30,12 @@ class BoardTest extends AbstractTestCase
 
         $board->getTileByCoordinates('1.1');
     }
+
+    public function testGetters()
+    {
+        $tile = $this->createTileWithMocks();
+        $board = new Board(Board::TYPE_HEX, ['1.1' => $tile], [], []);
+        $this->assertEmpty($board->getRows());
+        $this->assertEmpty($board->getColumns());
+    }
 }

@@ -74,4 +74,20 @@ class Board
     {
         return $this->rows[count($this->rows)];
     }
+
+    /**
+     * @return array|Row[]
+     */
+    public function getRows(): array
+    {
+        return $this->rows;
+    }
+
+    /**
+     * @return array|Column[]
+     */
+    public function getColumns(): array
+    {
+        return $this->columns;
+    }
 }

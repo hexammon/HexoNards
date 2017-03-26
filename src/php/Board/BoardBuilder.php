@@ -28,7 +28,7 @@ class BoardBuilder
         return new Board($type, $tiles, $rows, $columns);
     }
 
-    protected function createGrid(int $numberOfRows, int $numberOfCols, string $tileClassName): array
+    private function createGrid(int $numberOfRows, int $numberOfCols, string $tileClassName): array
     {
         $tiles = [];
         $rows = $this->createTileSetList($numberOfRows, Row::class);
