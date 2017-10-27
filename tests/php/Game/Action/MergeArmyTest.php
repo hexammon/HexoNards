@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNardsTests\Game\Action;
 
 use FreeElephants\HexoNards\Game\Action\MergeArmy;
 use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 
@@ -16,7 +16,7 @@ class MergeArmyTest extends AbstractTestCase
 
     public function testExecuteSuccess()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $tiles = $this->createGrid(2, 2);
         $sourceTile = $tiles['1.1'];
         $targetTile = $tiles['1.2'];
@@ -33,8 +33,8 @@ class MergeArmyTest extends AbstractTestCase
 
     public function testMergeWithEnemy()
     {
-        $player = $this->createMock(Player::class);
-        $enemy = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
+        $enemy = $this->createMock(PlayerInterface::class);
         $tiles = $this->createGrid(2, 2);
         $sourceTile = $tiles['1.1'];
         $targetTile = $tiles['1.2'];

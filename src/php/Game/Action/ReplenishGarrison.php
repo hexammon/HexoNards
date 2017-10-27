@@ -4,12 +4,12 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
 use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class ReplenishArmy implements PlayerActionInterface
+class ReplenishGarrison implements PlayerActionInterface
 {
 
     /**
@@ -27,7 +27,7 @@ class ReplenishArmy implements PlayerActionInterface
         $this->numberOfUnits = $numberOfUnits;
     }
 
-    public function execute(Player $player)
+    public function execute(PlayerInterface $player)
     {
         if ($player !== $this->army->getOwner()) {
             throw new TouchForeignOwnException();

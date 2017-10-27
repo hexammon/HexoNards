@@ -3,7 +3,7 @@
 namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 
 /**
@@ -27,7 +27,7 @@ class MergeArmy implements PlayerActionInterface
         $this->targetArmy = &$targetArmy;
     }
 
-    public function execute(Player $player)
+    public function execute(PlayerInterface $player)
     {
         if(false === $this->sourceArmy->isSameOwner($this->targetArmy)) {
             throw new InapplicableActionException('Can not merge with enemy. ');

@@ -6,7 +6,7 @@ use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Action\TakeOffEnemyGarrison;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 use FreeElephants\HexoNardsTests\Game\Exception\AttackItSelfException;
@@ -19,8 +19,8 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
 
     public function testExecuteSuccess()
     {
-        $player = $this->createMock(Player::class);
-        $otherPlayer = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
+        $otherPlayer = $this->createMock(PlayerInterface::class);
         $tile = $this->createTileWithMocks();
         $garrison = new Army($otherPlayer, $tile, 10);
         $castle = $this->createMock(Castle::class);
@@ -35,8 +35,8 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
 
     public function testExecuteOnLastGarrisonUnitShouldBeAssaulted()
     {
-        $player = $this->createMock(Player::class);
-        $otherPlayer = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
+        $otherPlayer = $this->createMock(PlayerInterface::class);
         $tile = $this->createTileWithMocks();
         $garrison = new Army($otherPlayer, $tile, 1);
         $castle = $this->createMock(Castle::class);
@@ -50,8 +50,8 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
 
     public function testExecuteOnNotBesieged()
     {
-        $player = $this->createMock(Player::class);
-        $otherPlayer = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
+        $otherPlayer = $this->createMock(PlayerInterface::class);
         $tile = $this->createTileWithMocks();
         $garrison = new Army($otherPlayer, $tile, 10);
         $castle = $this->createMock(Castle::class);
@@ -65,7 +65,7 @@ class TakeOffEnemyGarrisonTest extends AbstractTestCase
 
     public function testExecuteOnSelfOwnCastleException()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $tile = $this->createTileWithMocks();
         $garrison = new Army($player, $tile, 10);
         $castle = $this->createMock(Castle::class);

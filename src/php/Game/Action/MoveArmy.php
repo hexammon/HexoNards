@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 
 /**
@@ -32,7 +32,7 @@ class MoveArmy implements PlayerActionInterface
         $this->units = $units;
     }
 
-    public function execute(Player $player)
+    public function execute(PlayerInterface $player)
     {
         $army = $this->source->getArmy();
         if ($player !== $army->getOwner()) {

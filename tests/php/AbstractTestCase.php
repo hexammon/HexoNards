@@ -30,7 +30,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      * 2.1 => Tile
      * @return AbstractTile[]
      */
-    protected function createGrid(int $height, int $width, $tileClassName = Tile::class): array
+    protected function createGrid(int $height, int $width, $tileClassName = Tile::class, array &$rows = [], array &$columns = []): array
     {
         $tiles = [];
         $rows = $this->createTileSetList($height, Row::class);
@@ -46,7 +46,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
         return $tiles;
     }
 
-    private function createTileSetList(int $numberOfSets, $tileSetClass): array
+    private function createTileSetList(int $numberOfSets, $tileSetClass)
     {
         $sets = [];
         for ($number = 1; $number <= $numberOfSets; $number++) {

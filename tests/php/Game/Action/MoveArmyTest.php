@@ -6,7 +6,7 @@ use FreeElephants\HexoNards\Board\Square\Tile;
 use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
 use FreeElephants\HexoNards\Game\Action\MoveArmy;
 use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 
@@ -18,7 +18,7 @@ class MoveArmyTest extends AbstractTestCase
 
     public function testExecute()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $sourceTile = $this->createMock(Tile::class);
         $targetTile = $this->createTileWithMocks();
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
@@ -34,7 +34,7 @@ class MoveArmyTest extends AbstractTestCase
 
     public function testExecuteWithDivision()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $sourceTile = $this->createMock(Tile::class);
         $targetTile = $this->createTileWithMocks();
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
@@ -58,9 +58,9 @@ class MoveArmyTest extends AbstractTestCase
 
     public function testMoveForeignArmyException()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $sourceTile = $this->createTileWithMocks();
-        $otherPlayer = $this->createMock(Player::class);
+        $otherPlayer = $this->createMock(PlayerInterface::class);
         $army = new Army($otherPlayer, $sourceTile, 20);
         $sourceTile->setArmy($army);
         $targetTile = $this->createTileWithMocks();
@@ -71,7 +71,7 @@ class MoveArmyTest extends AbstractTestCase
 
     public function testMoveOnTileWithAnotherArmyException()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $sourceTile = $this->createMock(Tile::class);
         $targetTile = $this->createTileWithMocks();
         $targetArmy = new Army($player, $targetTile, 10);
@@ -88,7 +88,7 @@ class MoveArmyTest extends AbstractTestCase
 
     public function testMoveLastUnitFromCastleException()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
         $sourceTile = $this->createMock(Tile::class);
         $targetTile = $this->createTileWithMocks();
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);

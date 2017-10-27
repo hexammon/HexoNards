@@ -49,4 +49,10 @@ abstract class AbstractTileSet
     {
         return null !== $this->previous;
     }
+
+
+    public function getLastTile(): AbstractTile
+    {
+        return $this->tiles[count($this->tiles)];
+    }
 }

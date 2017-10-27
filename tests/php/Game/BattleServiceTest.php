@@ -6,7 +6,7 @@ use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\BattleService;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -17,11 +17,11 @@ class BattleServiceTest extends AbstractTestCase
 
     public function testAttack()
     {
-        $assaulter = $this->createMock(Player::class);
+        $assaulter = $this->createMock(PlayerInterface::class);
         $assaulterTile = $this->createTileWithMocks();
         $assaulterArmy = new Army($assaulter, $assaulterTile, 6);
 
-        $defender = $this->createMock(Player::class);
+        $defender = $this->createMock(PlayerInterface::class);
         $defenderTile = $this->createTileWithMocks();
         $defenderArmy = new Army($defender, $defenderTile, 4);
 
@@ -38,11 +38,11 @@ class BattleServiceTest extends AbstractTestCase
 
     public function testAttackWithAssaulterCompleteVictory()
     {
-        $assaulter = $this->createMock(Player::class);
+        $assaulter = $this->createMock(PlayerInterface::class);
         $assaulterTile = $this->createMock(AbstractTile::class);
         $assaulterArmy = new Army($assaulter, $assaulterTile, 6);
 
-        $defender = $this->createMock(Player::class);
+        $defender = $this->createMock(PlayerInterface::class);
         $defenderTile = $this->createTileWithMocks();
         $assaulterTile->method('getNearestTiles')->willReturn([$defenderTile]);
         $defenderArmy = new Army($defender, $defenderTile, 1);
@@ -60,11 +60,11 @@ class BattleServiceTest extends AbstractTestCase
 
     public function testAttackWithDefenderCompleteVictory()
     {
-        $assaulter = $this->createMock(Player::class);
+        $assaulter = $this->createMock(PlayerInterface::class);
         $assaulterTile = $this->createTileWithMocks();
         $assaulterArmy = new Army($assaulter, $assaulterTile, 1);
 
-        $defender = $this->createMock(Player::class);
+        $defender = $this->createMock(PlayerInterface::class);
         $defenderTile = $this->createTileWithMocks();
         $defenderArmy = new Army($defender, $defenderTile, 2);
 
@@ -81,11 +81,11 @@ class BattleServiceTest extends AbstractTestCase
 
     public function testAttackBothAnnihilation()
     {
-        $assaulter = $this->createMock(Player::class);
+        $assaulter = $this->createMock(PlayerInterface::class);
         $assaulterTile = $this->createTileWithMocks();
         $assaulterArmy = new Army($assaulter, $assaulterTile, 1);
 
-        $defender = $this->createMock(Player::class);
+        $defender = $this->createMock(PlayerInterface::class);
         $defenderTile = $this->createTileWithMocks();
         $defenderArmy = new Army($defender, $defenderTile, 1);
 
@@ -103,7 +103,7 @@ class BattleServiceTest extends AbstractTestCase
 
     public function testAttackSelfOwnedException()
     {
-        $assaulter = $this->createMock(Player::class);
+        $assaulter = $this->createMock(PlayerInterface::class);
         $assaulterTile = $this->createTileWithMocks();
         $assaulterArmy = new Army($assaulter, $assaulterTile, 6);
         $assaulterTile->setArmy($assaulterArmy);

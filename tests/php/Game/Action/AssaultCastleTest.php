@@ -5,7 +5,7 @@ namespace FreeElephants\HexoNardsTests\Game\Action;
 use FreeElephants\HexoNards\Game\Action\AssaultCastle;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Player;
+use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -16,11 +16,11 @@ class AssaultCastleTest extends AbstractTestCase
 
     public function testExecuteSuccess()
     {
-        $player = $this->createMock(Player::class);
+        $player = $this->createMock(PlayerInterface::class);
 
         $tiles = $this->createGrid(2, 2);
 
-        $defenderPlayer = $this->createMock(Player::class);
+        $defenderPlayer = $this->createMock(PlayerInterface::class);
         $defenderTile = $tiles['1.1'];
         $defenderArmy = new Army($defenderPlayer, $defenderTile, 1);
         $castle = new Castle($defenderTile);

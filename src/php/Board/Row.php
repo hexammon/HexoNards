@@ -34,4 +34,9 @@ class Row extends AbstractTileSet
         return $this->tiles[$column->getNumber()];
     }
 
+    public function getFirstTile()
+    {
+        return $this->tiles[1];
+    }
+
 }
