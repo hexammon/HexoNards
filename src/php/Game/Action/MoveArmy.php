@@ -5,7 +5,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
 use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
+use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

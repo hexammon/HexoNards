@@ -7,7 +7,7 @@ use FreeElephants\HexoNards\Board\Board;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Game;
-use FreeElephants\HexoNardsTests\Game\Exception\UnsupportedConfigurationException;
+use FreeElephants\HexoNards\Game\Exception\UnsupportedConfigurationException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

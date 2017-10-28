@@ -5,8 +5,8 @@ namespace FreeElephants\HexoNards\Game\Action;
 use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
-use FreeElephants\HexoNardsTests\Game\Exception\AttackItSelfException;
+use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
+use FreeElephants\HexoNards\Game\Exception\AttackItSelfException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

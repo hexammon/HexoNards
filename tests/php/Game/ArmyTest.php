@@ -8,9 +8,9 @@ use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
+use FreeElephants\HexoNards\Game\Exception\TooMuchDistanceException;
 use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
-use FreeElephants\HexoNardsTests\Game\Exception\TooMuchDistanceException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

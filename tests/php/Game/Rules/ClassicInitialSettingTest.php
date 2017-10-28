@@ -4,12 +4,12 @@ namespace FreeElephants\HexoNardsTests\Game\Rules;
 
 use FreeElephants\HexoNards\Board\Board;
 use FreeElephants\HexoNards\Board\Hex\Tile;
+use FreeElephants\HexoNards\Game\Exception\UnsupportedConfigurationException;
 use FreeElephants\HexoNards\Game\Game;
 use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
 use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNards\Game\Rules\ClassicInitialSetting;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
-use FreeElephants\HexoNardsTests\Game\Exception\UnsupportedConfigurationException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

@@ -1,6 +1,6 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Exception;
+namespace FreeElephants\HexoNards\Game\Exception;
 
 use FreeElephants\HexoNards\Exception\DomainException;
 

@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ## Unreleased
 ### Added
-- Board methods .getRows() and getColumns(). 
+- Board methods .getRows() and getColumns().
+### Fixed
+- Some exceptions namespaces: move from tests. 
+### Internal
+- Update phpunit to 6.4
+- Extend all tests from internal supertype instead phpunit. 
+ 
 
 ## 1.0.0-alpha.1 - 2017-03-25
 ### Added
