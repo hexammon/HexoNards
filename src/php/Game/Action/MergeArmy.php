@@ -4,7 +4,7 @@ namespace FreeElephants\HexoNards\Game\Action;
 
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
+use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

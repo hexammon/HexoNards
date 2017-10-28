@@ -2,11 +2,11 @@
 
 namespace FreeElephants\HexoNardsTests\Game\Action;
 
+use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
 use FreeElephants\HexoNards\Game\Action\MergeArmy;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
-use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

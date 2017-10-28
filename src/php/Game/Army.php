@@ -6,7 +6,7 @@ use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Exception\DomainException;
 use FreeElephants\HexoNards\Exception\InvalidArgumentException;
 use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
-use FreeElephants\HexoNardsTests\Game\Exception\TooMuchDistanceException;
+use FreeElephants\HexoNards\Game\Exception\TooMuchDistanceException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

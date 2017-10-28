@@ -3,13 +3,13 @@
 namespace FreeElephants\HexoNardsTests\Game\Action;
 
 use FreeElephants\HexoNards\Exception\DomainException;
+use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
 use FreeElephants\HexoNards\Game\Action\TakeOffEnemyGarrison;
 use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
+use FreeElephants\HexoNards\Game\Exception\AttackItSelfException;
 use FreeElephants\HexoNards\Game\PlayerInterface;
 use FreeElephants\HexoNardsTests\AbstractTestCase;
-use FreeElephants\HexoNardsTests\Game\Action\Exception\InapplicableActionException;
-use FreeElephants\HexoNardsTests\Game\Exception\AttackItSelfException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
