@@ -8,11 +8,12 @@ use FreeElephants\HexoNards\Game\Army;
 use FreeElephants\HexoNards\Game\Castle;
 use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
 use FreeElephants\HexoNards\Game\PlayerInterface;
+use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class CastleTest extends \PHPUnit_Framework_TestCase
+class CastleTest extends AbstractTestCase
 {
 
     public function testConstructingAndGetters()

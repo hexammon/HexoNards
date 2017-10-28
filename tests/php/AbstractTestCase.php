@@ -6,11 +6,12 @@ use FreeElephants\HexoNards\Board\AbstractTile;
 use FreeElephants\HexoNards\Board\Column;
 use FreeElephants\HexoNards\Board\Row;
 use FreeElephants\HexoNards\Board\Hex\Tile;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     protected function createTileWithMocks($tileClassName = Tile::class): AbstractTile
     {

@@ -6,11 +6,12 @@ use FreeElephants\HexoNards\Board\Column;
 use FreeElephants\HexoNards\Board\Row;
 use FreeElephants\HexoNards\Board\Square\Tile;
 use FreeElephants\HexoNards\Game\Castle;
+use FreeElephants\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class TileTest extends \PHPUnit_Framework_TestCase
+class TileTest extends AbstractTestCase
 {
 
     public function testConstructingAndGetters()
