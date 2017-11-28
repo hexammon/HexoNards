@@ -1,12 +1,12 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Board\Square;
+namespace Hexammon\HexoNardsTests\Board\Square;
 
-use FreeElephants\HexoNards\Board\Column;
-use FreeElephants\HexoNards\Board\Row;
-use FreeElephants\HexoNards\Board\Square\Tile;
-use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Column;
+use Hexammon\HexoNards\Board\Row;
+use Hexammon\HexoNards\Board\Square\Tile;
+use Hexammon\HexoNards\Game\Castle;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

@@ -1,15 +1,15 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Action;
+namespace Hexammon\HexoNardsTests\Game\Action;
 
-use FreeElephants\HexoNards\Exception\DomainException;
-use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
-use FreeElephants\HexoNards\Game\Action\TakeOffEnemyGarrison;
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Exception\AttackItSelfException;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Exception\DomainException;
+use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Game\Action\TakeOffEnemyGarrison;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\Castle;
+use Hexammon\HexoNards\Game\Exception\AttackItSelfException;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

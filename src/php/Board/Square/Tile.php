@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Board\Square;
+namespace Hexammon\HexoNards\Board\Square;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Board\AbstractTile;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

@@ -1,12 +1,12 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Action;
+namespace Hexammon\HexoNards\Game\Action;
 
-use FreeElephants\HexoNards\Exception\DomainException;
-use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
-use FreeElephants\HexoNards\Game\Exception\AttackItSelfException;
+use Hexammon\HexoNards\Exception\DomainException;
+use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Game\Castle;
+use Hexammon\HexoNards\Game\Exception\AttackItSelfException;
+use Hexammon\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

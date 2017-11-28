@@ -1,9 +1,9 @@
 <?php
 
-namespace FreeElephants\HexoNards\Board;
+namespace Hexammon\HexoNards\Board;
 
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Castle;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\Castle;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

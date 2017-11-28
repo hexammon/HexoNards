@@ -1,11 +1,11 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game;
+namespace Hexammon\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\Board;
-use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
-use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
-use FreeElephants\HexoNards\Game\Move\MovesCounter;
+use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
+use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\Move\MovesCounter;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

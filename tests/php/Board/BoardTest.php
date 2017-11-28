@@ -1,10 +1,10 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Board;
+namespace Hexammon\HexoNardsTests\Board;
 
-use FreeElephants\HexoNards\Board\Board;
-use FreeElephants\HexoNards\Board\Exception\TileOutOfBoundsException;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Board\Exception\TileOutOfBoundsException;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

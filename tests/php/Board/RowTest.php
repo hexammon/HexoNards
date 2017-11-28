@@ -1,9 +1,9 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Board;
+namespace Hexammon\HexoNardsTests\Board;
 
-use FreeElephants\HexoNards\Board\Row;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Row;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Move\Random;
+namespace Hexammon\HexoNards\Game\Move\Random;
 
-use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

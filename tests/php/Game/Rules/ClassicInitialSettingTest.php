@@ -1,15 +1,15 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Rules;
+namespace Hexammon\HexoNardsTests\Game\Rules;
 
-use FreeElephants\HexoNards\Board\Board;
-use FreeElephants\HexoNards\Board\Hex\Tile;
-use FreeElephants\HexoNards\Game\Exception\UnsupportedConfigurationException;
-use FreeElephants\HexoNards\Game\Game;
-use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNards\Game\Rules\ClassicInitialSetting;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Board\Hex\Tile;
+use Hexammon\HexoNards\Game\Exception\UnsupportedConfigurationException;
+use Hexammon\HexoNards\Game\Game;
+use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Game\Rules\ClassicInitialSetting;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

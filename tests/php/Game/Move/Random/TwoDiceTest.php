@@ -1,9 +1,9 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Move\Random;
+namespace Hexammon\HexoNardsTests\Game\Move\Random;
 
-use FreeElephants\HexoNards\Game\Move\Random\TwoDice;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Game\Move\Random\TwoDice;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

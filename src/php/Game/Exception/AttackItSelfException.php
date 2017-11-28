@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Exception;
+namespace Hexammon\HexoNards\Game\Exception;
 
-use FreeElephants\HexoNards\Exception\DomainException;
+use Hexammon\HexoNards\Exception\DomainException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

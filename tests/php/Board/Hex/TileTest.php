@@ -1,11 +1,11 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Board\Hex;
+namespace Hexammon\HexoNardsTests\Board\Hex;
 
-use FreeElephants\HexoNards\Board\Column;
-use FreeElephants\HexoNards\Board\Hex\Tile;
-use FreeElephants\HexoNards\Board\Row;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Column;
+use Hexammon\HexoNards\Board\Hex\Tile;
+use Hexammon\HexoNards\Board\Row;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

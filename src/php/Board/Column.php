@@ -1,6 +1,6 @@
 <?php
 
-namespace FreeElephants\HexoNards\Board;
+namespace Hexammon\HexoNards\Board;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

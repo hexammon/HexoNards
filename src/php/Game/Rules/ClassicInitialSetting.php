@@ -1,13 +1,13 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Rules;
+namespace Hexammon\HexoNards\Game\Rules;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
-use FreeElephants\HexoNards\Board\Board;
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Game;
-use FreeElephants\HexoNards\Game\Exception\UnsupportedConfigurationException;
+use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\Castle;
+use Hexammon\HexoNards\Game\Exception\UnsupportedConfigurationException;
+use Hexammon\HexoNards\Game\Game;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

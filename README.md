@@ -1,6 +1,8 @@
 # The Game
 
-![Test coverage grapth](https://codecov.io/gh/FreeElephants/HexoNards/branch/master/graphs/sunburst.svg "Test coverage graph")
+[![Build Status](https://travis-ci.org/hexammon/HexoNards.svg?branch=master)](https://travis-ci.org/hexammon/HexoNards)
+
+![Test coverage grapth](https://codecov.io/gh/hexammon/HexoNards/branch/master/graphs/sunburst.svg "Test coverage graph")
 
 Server side game logic. 
 

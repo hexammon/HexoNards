@@ -1,13 +1,13 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game;
+namespace Hexammon\HexoNardsTests\Game;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
-use FreeElephants\HexoNards\Exception\DomainException;
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\BattleService;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Exception\DomainException;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\BattleService;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

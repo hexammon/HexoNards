@@ -1,13 +1,13 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Board;
+namespace Hexammon\HexoNardsTests\Board;
 
-use FreeElephants\HexoNards\Board\Board;
-use FreeElephants\HexoNards\Board\BoardBuilder;
-use FreeElephants\HexoNards\Board\Exception\UnknownBoardTypeException;
-use FreeElephants\HexoNards\Board\Hex\Tile as HexTile;
-use FreeElephants\HexoNards\Board\Square\Tile as SquareTile;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Board\BoardBuilder;
+use Hexammon\HexoNards\Board\Exception\UnknownBoardTypeException;
+use Hexammon\HexoNards\Board\Hex\Tile as HexTile;
+use Hexammon\HexoNards\Board\Square\Tile as SquareTile;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

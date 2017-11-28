@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Action;
+namespace Hexammon\HexoNards\Game\Action;
 
-use FreeElephants\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

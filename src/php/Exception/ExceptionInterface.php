@@ -1,6 +1,6 @@
 <?php
 
-namespace FreeElephants\HexoNards\Exception;
+namespace Hexammon\HexoNards\Exception;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

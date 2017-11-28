@@ -1,10 +1,10 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Action;
+namespace Hexammon\HexoNards\Game\Action;
 
-use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Game\Action\Exception\TouchForeignOwnException;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

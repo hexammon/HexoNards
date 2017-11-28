@@ -1,11 +1,11 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests;
+namespace Hexammon\HexoNardsTests;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
-use FreeElephants\HexoNards\Board\Column;
-use FreeElephants\HexoNards\Board\Row;
-use FreeElephants\HexoNards\Board\Hex\Tile;
+use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Board\Column;
+use Hexammon\HexoNards\Board\Hex\Tile;
+use Hexammon\HexoNards\Board\Row;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Board\Exception;
+namespace Hexammon\HexoNards\Board\Exception;
 
-use FreeElephants\HexoNards\Exception\OutOfBoundsException;
+use Hexammon\HexoNards\Exception\OutOfBoundsException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

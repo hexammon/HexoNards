@@ -1,12 +1,12 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game;
+namespace Hexammon\HexoNards\Game;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
-use FreeElephants\HexoNards\Exception\DomainException;
-use FreeElephants\HexoNards\Exception\InvalidArgumentException;
-use FreeElephants\HexoNards\Game\Exception\MoveToOccupiedTileException;
-use FreeElephants\HexoNards\Game\Exception\TooMuchDistanceException;
+use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Exception\DomainException;
+use Hexammon\HexoNards\Exception\InvalidArgumentException;
+use Hexammon\HexoNards\Game\Exception\MoveToOccupiedTileException;
+use Hexammon\HexoNards\Game\Exception\TooMuchDistanceException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

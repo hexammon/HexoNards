@@ -1,10 +1,10 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Action;
+namespace Hexammon\HexoNards\Game\Action;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
-use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Game\Castle;
+use Hexammon\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

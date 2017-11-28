@@ -1,10 +1,10 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Move;
+namespace Hexammon\HexoNardsTests\Game\Move;
 
-use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
-use FreeElephants\HexoNards\Game\Move\MovesCounter;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\Move\MovesCounter;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

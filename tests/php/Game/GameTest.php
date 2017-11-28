@@ -1,13 +1,13 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game;
+namespace Hexammon\HexoNardsTests\Game;
 
-use FreeElephants\HexoNards\Board\Board;
-use FreeElephants\HexoNards\Game\Action\PlayerActionInterface;
-use FreeElephants\HexoNards\Game\Game;
-use FreeElephants\HexoNards\Game\Move\MoveGeneratorInterface;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
+use Hexammon\HexoNards\Game\Game;
+use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

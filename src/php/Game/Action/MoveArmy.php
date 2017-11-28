@@ -1,11 +1,11 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Action;
+namespace Hexammon\HexoNards\Game\Action;
 
-use FreeElephants\HexoNards\Board\AbstractTile;
-use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Game\Action\Exception\TouchForeignOwnException;
+use Hexammon\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

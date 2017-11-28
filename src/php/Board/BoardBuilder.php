@@ -1,10 +1,10 @@
 <?php
 
-namespace FreeElephants\HexoNards\Board;
+namespace Hexammon\HexoNards\Board;
 
-use FreeElephants\HexoNards\Board\Exception\UnknownBoardTypeException;
-use FreeElephants\HexoNards\Board\Hex\Tile as HexTile;
-use FreeElephants\HexoNards\Board\Square\Tile as SquareTile;
+use Hexammon\HexoNards\Board\Exception\UnknownBoardTypeException;
+use Hexammon\HexoNards\Board\Hex\Tile as HexTile;
+use Hexammon\HexoNards\Board\Square\Tile as SquareTile;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

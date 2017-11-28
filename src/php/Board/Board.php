@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Board;
+namespace Hexammon\HexoNards\Board;
 
-use FreeElephants\HexoNards\Board\Exception\TileOutOfBoundsException;
+use Hexammon\HexoNards\Board\Exception\TileOutOfBoundsException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

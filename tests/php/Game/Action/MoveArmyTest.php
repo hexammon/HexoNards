@@ -1,14 +1,14 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Action;
+namespace Hexammon\HexoNardsTests\Game\Action;
 
-use FreeElephants\HexoNards\Board\Square\Tile;
-use FreeElephants\HexoNards\Game\Action\Exception\InapplicableActionException;
-use FreeElephants\HexoNards\Game\Action\Exception\TouchForeignOwnException;
-use FreeElephants\HexoNards\Game\Action\MoveArmy;
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Square\Tile;
+use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Game\Action\Exception\TouchForeignOwnException;
+use Hexammon\HexoNards\Game\Action\MoveArmy;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

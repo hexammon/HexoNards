@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "FreeElephants\\HexoNards\\": "src/php"
+            "Hexammon\\HexoNards\\": "src/php"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "FreeElephants\\HexoNardsTests\\": "tests/php"
+            "Hexammon\\HexoNardsTests\\": "tests/php"
         }
     }
 }

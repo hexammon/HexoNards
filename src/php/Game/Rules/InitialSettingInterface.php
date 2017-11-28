@@ -1,8 +1,8 @@
 <?php
 
-namespace FreeElephants\HexoNards\Game\Rules;
+namespace Hexammon\HexoNards\Game\Rules;
 
-use FreeElephants\HexoNards\Game\Game;
+use Hexammon\HexoNards\Game\Game;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

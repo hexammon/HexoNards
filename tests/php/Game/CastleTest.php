@@ -1,14 +1,14 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game;
+namespace Hexammon\HexoNardsTests\Game;
 
-use FreeElephants\HexoNards\Board\Square\Tile;
-use FreeElephants\HexoNards\Exception\DomainException;
-use FreeElephants\HexoNards\Game\Army;
-use FreeElephants\HexoNards\Game\Castle;
-use FreeElephants\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
-use FreeElephants\HexoNards\Game\PlayerInterface;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Board\Square\Tile;
+use Hexammon\HexoNards\Exception\DomainException;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\Castle;
+use Hexammon\HexoNards\Game\Exception\ConstructOnOccupiedTileException;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>

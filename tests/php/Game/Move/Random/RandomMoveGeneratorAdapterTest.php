@@ -1,10 +1,10 @@
 <?php
 
-namespace FreeElephants\HexoNardsTests\Game\Move\Random;
+namespace Hexammon\HexoNardsTests\Game\Move\Random;
 
-use FreeElephants\HexoNards\Game\Move\Random\RandomInterface;
-use FreeElephants\HexoNards\Game\Move\Random\RandomMoveGeneratorAdapter;
-use FreeElephants\HexoNardsTests\AbstractTestCase;
+use Hexammon\HexoNards\Game\Move\Random\RandomInterface;
+use Hexammon\HexoNards\Game\Move\Random\RandomMoveGeneratorAdapter;
+use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
