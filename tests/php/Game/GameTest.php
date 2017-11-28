@@ -52,5 +52,4 @@ class GameTest extends AbstractTestCase
         $this->assertSame($player2, $game->getActivePlayer());
     }
 
-
 }
