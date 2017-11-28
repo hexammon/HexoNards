@@ -6,6 +6,7 @@ use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Game\Rules\Exception\GameNotOverException;
 
 class ClassicGameOverDetector implements GameOverDetectorInterface
 {
@@ -38,11 +39,16 @@ class ClassicGameOverDetector implements GameOverDetectorInterface
 
     public function getWinner(Game $game): PlayerInterface
     {
-        // TODO: Implement getWinner() method.
+        if ($this->isOver($game)) {
+            /**@var AbstractTile $tile */
+            foreach ($game->getBoard()->getTiles() as $tile) {
+                if ($tile->hasArmy()) {
+                    return $tile->getArmy()->getOwner();
+                }
+            }
+        }
+
+        throw new GameNotOverException();
     }
 
-    public function getLoser(Game $game): PlayerInterface
-    {
-        // TODO: Implement getLoser() method.
-    }
 }

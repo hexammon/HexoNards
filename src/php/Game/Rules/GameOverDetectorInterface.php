@@ -12,5 +12,4 @@ interface GameOverDetectorInterface
 
     public function getWinner(Game $game): PlayerInterface;
 
-    public function getLoser(Game $game): PlayerInterface;
 }

@@ -49,8 +49,4 @@ class Game
         return $this->board;
     }
 
-    public function isOver(): bool
-    {
-        return true;
-    }
 }
