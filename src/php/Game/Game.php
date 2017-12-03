@@ -20,6 +20,10 @@ class Game
      * @var Board
      */
     private $board;
+    /**
+     * @var MovesCounter
+     */
+    private $moveCounter;
 
     public function __construct(array $players, Board $board, MoveGeneratorInterface $moveGenerator)
     {
