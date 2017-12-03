@@ -3,7 +3,9 @@
 namespace Hexammon\HexoNards\Game\Action;
 
 use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Exception\InvalidArgumentException;
 use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Game\Action\Exception\MoveOverNumberOfUnitsException;
 use Hexammon\HexoNards\Game\Action\Exception\TouchForeignOwnException;
 use Hexammon\HexoNards\Game\PlayerInterface;
 
@@ -27,6 +29,9 @@ class MoveArmy implements PlayerActionInterface
 
     public function __construct(AbstractTile $source, AbstractTile $target, int $units = null)
     {
+        if ($units !== null && $units < 1) {
+            throw new InvalidArgumentException('Number of units must be null or great than 0. ');
+        }
         $this->source = $source;
         $this->target = $target;
         $this->units = $units;
@@ -42,8 +47,11 @@ class MoveArmy implements PlayerActionInterface
             throw new InapplicableActionException('Can not leave castle without garrison. ');
         }
 
-        if (isset($this->units) && $this->units !== $army->count()) {
-            $army->divide($army->count() - $this->units);
+        if (isset($this->units) /*&& $this->units !== $army->count()*/) {
+            if ($this->units > $army->count()) {
+                throw new MoveOverNumberOfUnitsException();
+            }
+            $remainder = $army->divide($army->count() - $this->units);
         }
 
         if ($this->target->hasArmy()) {
@@ -51,5 +59,8 @@ class MoveArmy implements PlayerActionInterface
         }
 
         $army->move($this->target);
+        if (isset($remainder)) {
+            $this->source->setArmy($remainder);
+        }
     }
 }

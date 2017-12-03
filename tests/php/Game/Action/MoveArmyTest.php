@@ -2,11 +2,15 @@
 
 namespace Hexammon\HexoNardsTests\Game\Action;
 
+use Hexammon\HexoNards\Board\BoardBuilder;
 use Hexammon\HexoNards\Board\Square\Tile;
+use Hexammon\HexoNards\Exception\InvalidArgumentException;
 use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
+use Hexammon\HexoNards\Game\Action\Exception\MoveOverNumberOfUnitsException;
 use Hexammon\HexoNards\Game\Action\Exception\TouchForeignOwnException;
 use Hexammon\HexoNards\Game\Action\MoveArmy;
 use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\Castle;
 use Hexammon\HexoNards\Game\PlayerInterface;
 use Hexammon\HexoNardsTests\AbstractTestCase;
 
@@ -86,6 +90,47 @@ class MoveArmyTest extends AbstractTestCase
         $command->execute($player);
     }
 
+    public function testMoveOneUnitFromCastle()
+    {
+        $player = $this->createMock(PlayerInterface::class);
+        $board = (new BoardBuilder())->build('hex', 2, 2);
+        $sourceTile = $board->getTileByCoordinates('1.1');
+        $targetTile = $board->getTileByCoordinates('1.2');
+        new Army($player, $sourceTile, 2);
+        new Castle($sourceTile);
+        $command = new MoveArmy($sourceTile, $targetTile, 1);
+        $command->execute($player);
+        $this->assertCount(1, $sourceTile->getArmy());
+        $this->assertCount(1, $targetTile->getArmy());
+    }
+
+    public function testMoveOverNumberOfUnits()
+    {
+        $player = $this->createMock(PlayerInterface::class);
+        $sourceTile = $this->createMock(Tile::class);
+        $targetTile = $this->createTileWithMocks();
+        $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
+        $army = new Army($player, $sourceTile, 1);
+        $sourceTile->method('getArmy')->willReturn($army);
+
+        $command = new MoveArmy($sourceTile, $targetTile, 2);
+        $this->expectException(MoveOverNumberOfUnitsException::class);
+        $command->execute($player);
+    }
+
+    public function testMoveZeroNumberOfUnits()
+    {
+        $player = $this->createMock(PlayerInterface::class);
+        $sourceTile = $this->createMock(Tile::class);
+        $targetTile = $this->createTileWithMocks();
+        $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
+        $army = new Army($player, $sourceTile, 1);
+        $sourceTile->method('getArmy')->willReturn($army);
+
+        $this->expectException(InvalidArgumentException::class);
+        new MoveArmy($sourceTile, $targetTile, 0);
+    }
+
     public function testMoveOnTileWithAnotherArmyException()
     {
         $player = $this->createMock(PlayerInterface::class);
@@ -100,7 +145,6 @@ class MoveArmyTest extends AbstractTestCase
         $command = new MoveArmy($sourceTile, $targetTile, 15);
         $this->expectException(InapplicableActionException::class);
         $command->execute($player);
-
     }
 
     public function testMoveLastUnitFromCastleException()
