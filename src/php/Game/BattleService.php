@@ -17,7 +17,7 @@ class BattleService
 
     public function attack(Army &$assaulter, Army &$defender)
     {
-        if($assaulter->isSameOwner($defender)) {
+        if ($assaulter->isSameOwner($defender)) {
             throw new DomainException('Self attack detected. ');
         }
 
@@ -28,8 +28,15 @@ class BattleService
         $battleResult = $this->calculateResult($losses, $assaulterSize, $defenderSize);
         switch ($battleResult) {
             case self::BOTH_ANNIHILATION:
-                Army::destroy($defender);
-                Army::destroy($assaulter);
+                if (!$assaulter->getTile()->hasCastle()) {
+                    Army::destroy($defender);
+                    Army::destroy($assaulter);
+                } else {
+                    if ($assaulter->count() > $losses) {
+                        $assaulter->deduct($losses);
+                    }
+                    Army::destroy($defender);
+                }
                 break;
 
             case self::DRAW:
@@ -40,7 +47,9 @@ class BattleService
             case self::ASSAULTER_WIN:
                 $newTile = $defender->getTile();
                 Army::destroy($defender);
-                $assaulter->move($newTile);
+                if (!$assaulter->getTile()->hasCastle()) {
+                    $assaulter->move($newTile);
+                }
                 $assaulter->deduct($losses);
                 break;
 

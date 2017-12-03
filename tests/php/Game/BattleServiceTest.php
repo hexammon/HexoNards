@@ -3,9 +3,11 @@
 namespace Hexammon\HexoNardsTests\Game;
 
 use Hexammon\HexoNards\Board\AbstractTile;
+use Hexammon\HexoNards\Board\BoardBuilder;
 use Hexammon\HexoNards\Exception\DomainException;
 use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\BattleService;
+use Hexammon\HexoNards\Game\Castle;
 use Hexammon\HexoNards\Game\PlayerInterface;
 use Hexammon\HexoNardsTests\AbstractTestCase;
 
@@ -98,6 +100,50 @@ class BattleServiceTest extends AbstractTestCase
         // check that positions after battle is clear
         $this->assertFalse($defenderTile->hasArmy());
         $this->assertFalse($assaulterTile->hasArmy());
+    }
+
+    public function testAtackFromCastleWithAssaulterCompleteVictoryAndStayOn()
+    {
+        $assaulter = $this->createMock(PlayerInterface::class);
+        $board = (new BoardBuilder())->build('hex', 2, 2);
+        $assaulterTile = $board->getTileByCoordinates('1.1');
+        $assaulterArmy = new Army($assaulter, $assaulterTile, 2);
+        $castle = new Castle($assaulterTile);
+        $defender = $this->createMock(PlayerInterface::class);
+        $defenderTile = $board->getTileByCoordinates('1.2');
+        $defenderArmy = new Army($defender, $defenderTile, 1);
+
+        $battleService = new BattleService();
+        $battleService->attack($assaulterArmy, $defenderArmy);
+
+        // check losses
+        $this->assertCount(1, $assaulterArmy);
+        $this->assertNull($defenderArmy);
+        $this->assertFalse($defenderTile->hasArmy());
+        // check positions after victory
+        $this->assertSame($assaulterArmy, $castle->getArmy());
+    }
+
+    public function testAtackFromCastleWithAssaulterVictoryAndStayOn()
+    {
+        $assaulter = $this->createMock(PlayerInterface::class);
+        $board = (new BoardBuilder())->build('hex', 2, 2);
+        $assaulterTile = $board->getTileByCoordinates('1.1');
+        $assaulterArmy = new Army($assaulter, $assaulterTile, 1);
+        $castle = new Castle($assaulterTile);
+        $defender = $this->createMock(PlayerInterface::class);
+        $defenderTile = $board->getTileByCoordinates('1.2');
+        $defenderArmy = new Army($defender, $defenderTile, 1);
+
+        $battleService = new BattleService();
+        $battleService->attack($assaulterArmy, $defenderArmy);
+
+        // check losses
+        $this->assertCount(1, $assaulterArmy);
+        $this->assertNull($defenderArmy);
+        $this->assertFalse($defenderTile->hasArmy());
+        // check positions after victory
+        $this->assertSame($assaulterArmy, $castle->getArmy());
     }
 
 
