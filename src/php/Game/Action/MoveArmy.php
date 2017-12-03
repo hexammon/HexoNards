@@ -42,7 +42,7 @@ class MoveArmy implements PlayerActionInterface
             throw new InapplicableActionException('Can not leave castle without garrison. ');
         }
 
-        if ($this->units !== $army->count()) {
+        if (isset($this->units) && $this->units !== $army->count()) {
             $army->divide($army->count() - $this->units);
         }
 

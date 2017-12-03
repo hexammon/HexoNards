@@ -32,6 +32,23 @@ class MoveArmyTest extends AbstractTestCase
         $this->assertSame($targetTile, $army->getTile());
     }
 
+    public function testExecuteWithOneUnitArmy()
+    {
+        $player = $this->createMock(PlayerInterface::class);
+        $sourceTile = $this->createMock(Tile::class);
+        $targetTile = $this->createTileWithMocks();
+        $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
+        $army = new Army($player, $sourceTile, 1);
+        $sourceTile->method('getArmy')->willReturn($army);
+
+        $command = new MoveArmy($sourceTile, $targetTile);
+
+        $command->execute($player);
+
+        $this->assertSame($targetTile, $army->getTile());
+        $this->assertCount(1, $army);
+    }
+
     public function testExecuteWithDivision()
     {
         $player = $this->createMock(PlayerInterface::class);
