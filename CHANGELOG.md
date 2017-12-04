@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - One unit army moving: bug with zero-size army after move.
 - Check number of units in MoveArmy action.
+- Remained after moving army bug.  
 
 ## 1.0.0-alpha.4 - 2017-11-29
 ### Added 

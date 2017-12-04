@@ -104,6 +104,37 @@ class MoveArmyTest extends AbstractTestCase
         $this->assertCount(1, $targetTile->getArmy());
     }
 
+    public function testMoveMultiple()
+    {
+        $player = $this->createMock(PlayerInterface::class);
+        $board = (new BoardBuilder())->build('hex', 2, 2);
+        // first step
+        $sourceTile = $board->getTileByCoordinates('1.1');
+        $targetTile = $board->getTileByCoordinates('1.2');
+        new Army($player, $sourceTile, 1);
+        $command = new MoveArmy($sourceTile, $targetTile, 1);
+        $command->execute($player);
+        $this->assertFalse($sourceTile->hasArmy());
+        $this->assertCount(1, $targetTile->getArmy());
+        // second step
+        $sourceTile = $board->getTileByCoordinates('1.2');
+        $targetTile = $board->getTileByCoordinates('2.2');
+        new Army($player, $sourceTile, 1);
+        $command = new MoveArmy($sourceTile, $targetTile, 1);
+        $command->execute($player);
+        $this->assertFalse($sourceTile->hasArmy());
+        $this->assertCount(1, $targetTile->getArmy());
+        // third step
+        $sourceTile = $board->getTileByCoordinates('2.2');
+        $targetTile = $board->getTileByCoordinates('2.1');
+        new Army($player, $sourceTile, 1);
+        $command = new MoveArmy($sourceTile, $targetTile, 1);
+        $command->execute($player);
+        $this->assertFalse($sourceTile->hasArmy());
+        $this->assertCount(1, $targetTile->getArmy());
+
+    }
+
     public function testMoveOverNumberOfUnits()
     {
         $player = $this->createMock(PlayerInterface::class);

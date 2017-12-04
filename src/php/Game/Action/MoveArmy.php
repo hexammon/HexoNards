@@ -51,7 +51,9 @@ class MoveArmy implements PlayerActionInterface
             if ($this->units > $army->count()) {
                 throw new MoveOverNumberOfUnitsException();
             }
-            $remainder = $army->divide($army->count() - $this->units);
+            if($this->units < $army->count()) {
+                $remainder = $army->divide($army->count() - $this->units);
+            }
         }
 
         if ($this->target->hasArmy()) {
