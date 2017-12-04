@@ -34,7 +34,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
         $game = new Game([
             $player1,
             $player2
-        ], $board, $movesGenerator);
+        ], $board, $this->createRuleSet($movesGenerator));
         $detector = new ClassicGameOverDetector();
         $this->assertTrue($detector->isOver($game));
     }
@@ -56,7 +56,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
         $game = new Game([
             $player1,
             $player2
-        ], $board, $movesGenerator);
+        ], $board, $this->createRuleSet($movesGenerator));
 
         $detector = new ClassicGameOverDetector();
         $this->assertFalse($detector->isOver($game));
@@ -80,7 +80,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
         $game = new Game([
             $player1,
             $player2
-        ], $board, $movesGenerator);
+        ], $board, $this->createRuleSet($movesGenerator));
         $detector = new ClassicGameOverDetector();
         $this->assertSame($player1, $detector->getWinner($game));
     }
@@ -102,7 +102,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
         $game = new Game([
             $player1,
             $player2
-        ], $board, $movesGenerator);
+        ], $board, $this->createRuleSet($movesGenerator));
 
         $detector = new ClassicGameOverDetector();
         $this->expectException(GameNotOverException::class);

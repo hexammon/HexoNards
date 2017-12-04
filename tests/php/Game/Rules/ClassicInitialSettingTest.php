@@ -26,7 +26,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $board = new Board(Board::TYPE_HEX, $tiles, $rows, $columns);
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
-        $game = new Game([$player1, $player2], $board, $moveGenerator);
+        $game = new Game([$player1, $player2], $board, $this->createRuleSet($moveGenerator));
         $initialSettingService = new ClassicInitialSetting();
         $initialSettingService->arrangePieces($game);
 
@@ -47,7 +47,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $board = new Board(Board::TYPE_HEX, $tiles, $rows, $columns);
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
-        $game = new Game([$player1, $player2, $player3, $player4], $board, $moveGenerator);
+        $game = new Game([$player1, $player2, $player3, $player4], $board, $this->createRuleSet($moveGenerator));
         $initialSettingService = new ClassicInitialSetting();
         $initialSettingService->arrangePieces($game);
 
@@ -65,7 +65,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $board = new Board(Board::TYPE_SQUARE, $tiles, $rows, $columns);
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
-        $game = new Game([$player1, $player2], $board, $moveGenerator);
+        $game = new Game([$player1, $player2], $board, $this->createRuleSet($moveGenerator));
         $initialSettingService = new ClassicInitialSetting();
         $initialSettingService->arrangePieces($game);
 
@@ -86,7 +86,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $board = new Board(Board::TYPE_SQUARE, $tiles, $rows, $columns);
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
-        $game = new Game([$player1, $player2, $player3, $player4], $board, $moveGenerator);
+        $game = new Game([$player1, $player2, $player3, $player4], $board, $this->createRuleSet($moveGenerator));
         $initialSettingService = new ClassicInitialSetting();
         $initialSettingService->arrangePieces($game);
 
@@ -110,7 +110,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $board = new Board(Board::TYPE_SQUARE, $tiles, $rows, $columns);
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
-        $game = new Game([$player1, $player2, $player3, $player4], $board, $moveGenerator);
+        $game = new Game([$player1, $player2, $player3, $player4], $board, $this->createRuleSet($moveGenerator));
         $initialSettingService = new ClassicInitialSetting();
         $initialSettingService->arrangePieces($game);
 

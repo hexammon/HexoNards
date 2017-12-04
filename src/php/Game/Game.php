@@ -4,8 +4,9 @@ namespace Hexammon\HexoNards\Game;
 
 use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
-use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 use Hexammon\HexoNards\Game\Move\MovesCounter;
+use Hexammon\HexoNards\Game\Rules\ClassicRuleSet;
+use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -24,12 +25,17 @@ class Game
      * @var MovesCounter
      */
     private $moveCounter;
+    /**
+     * @var RuleSetInterface
+     */
+    private $ruleSet;
 
-    public function __construct(array $players, Board $board, MoveGeneratorInterface $moveGenerator)
+    public function __construct(array $players, Board $board, RuleSetInterface $ruleSet = null)
     {
         $this->players = $players;
         $this->board = $board;
-        $this->moveCounter = new MovesCounter($moveGenerator, new \ArrayIterator($players));
+        $this->ruleSet = $ruleSet ?: new ClassicRuleSet();
+        $this->moveCounter = new MovesCounter($this->ruleSet->getMoveGenerator(), new \ArrayIterator($players));
     }
 
     public function getActivePlayer(): PlayerInterface

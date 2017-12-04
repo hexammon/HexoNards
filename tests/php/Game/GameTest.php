@@ -7,6 +7,8 @@ use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
+use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
 use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
@@ -26,7 +28,7 @@ class GameTest extends AbstractTestCase
         $game = new Game([
             $player1,
             $player2
-        ], $board, $movesGenerator);
+        ], $board, $this->createRuleSet($movesGenerator));
 
         $this->assertSame($player1, $game->getActivePlayer());
     }
@@ -41,7 +43,7 @@ class GameTest extends AbstractTestCase
         $game = new Game([
             $player1,
             $player2
-        ], $board, $movesGenerator);
+        ], $board, $this->createRuleSet($movesGenerator));
 
         $command = $this->createMock(PlayerActionInterface::class);
         $command->expects($commandSpy = $this->any())->method('execute');

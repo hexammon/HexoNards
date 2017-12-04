@@ -6,6 +6,9 @@ use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Board\Column;
 use Hexammon\HexoNards\Board\Hex\Tile;
 use Hexammon\HexoNards\Board\Row;
+use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
+use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -60,5 +63,28 @@ abstract class AbstractTestCase extends TestCase
         }
 
         return $sets;
+    }
+
+
+    protected function createRuleSet(MoveGeneratorInterface $movesGenerator): RuleSetInterface
+    {
+        return new class($movesGenerator) implements RuleSetInterface{
+
+            private $movesGenerator;
+
+            public function __construct(MoveGeneratorInterface $movesGenerator)
+            {
+                $this->movesGenerator = $movesGenerator;
+            }
+
+            public function getInitialSetting(): InitialSettingInterface
+            {
+            }
+
+            public function getMoveGenerator(): MoveGeneratorInterface
+            {
+                return $this->movesGenerator;
+            }
+        };
     }
 }
