@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Check number of units in MoveArmy action.
 - Remained after moving army bug.
 - Check that tile has army on move action.
+- Check game over. 
 
 ### Changed
 - Game accept RuleSetInterface instance in third argument instead MoveGenerator. 

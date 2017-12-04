@@ -3,6 +3,7 @@
 namespace Hexammon\HexoNards\Game;
 
 use Hexammon\HexoNards\Board\Board;
+use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
 use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
 use Hexammon\HexoNards\Game\Move\MovesCounter;
 use Hexammon\HexoNards\Game\Rules\ClassicRuleSet;
@@ -45,6 +46,9 @@ class Game
 
     public function invoke(PlayerActionInterface $command)
     {
+        if ($this->ruleSet->isGameOver($this)) {
+            throw new InapplicableActionException('Game over!');
+        }
         $command->execute($this->getActivePlayer());
         $this->moveCounter->tick();
     }

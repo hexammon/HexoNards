@@ -6,6 +6,7 @@ use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Board\Column;
 use Hexammon\HexoNards\Board\Hex\Tile;
 use Hexammon\HexoNards\Board\Row;
+use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
 use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
@@ -79,11 +80,17 @@ abstract class AbstractTestCase extends TestCase
 
             public function getInitialSetting(): InitialSettingInterface
             {
+                throw new \RuntimeException();
             }
 
             public function getMoveGenerator(): MoveGeneratorInterface
             {
                 return $this->movesGenerator;
+            }
+
+            public function isGameOver(Game $game): bool
+            {
+                return false;
             }
         };
     }
