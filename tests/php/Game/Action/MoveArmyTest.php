@@ -28,7 +28,7 @@ class MoveArmyTest extends AbstractTestCase
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
         $army = new Army($player, $sourceTile, 20);
         $sourceTile->method('getArmy')->willReturn($army);
-
+        $sourceTile->method('hasArmy')->willReturn(true);
         $command = new MoveArmy($sourceTile, $targetTile, 20);
 
         $command->execute($player);
@@ -44,6 +44,7 @@ class MoveArmyTest extends AbstractTestCase
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
         $army = new Army($player, $sourceTile, 1);
         $sourceTile->method('getArmy')->willReturn($army);
+        $sourceTile->method('hasArmy')->willReturn(true);
 
         $command = new MoveArmy($sourceTile, $targetTile);
 
@@ -59,6 +60,7 @@ class MoveArmyTest extends AbstractTestCase
         $sourceTile = $this->createMock(Tile::class);
         $targetTile = $this->createTileWithMocks();
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
+        $sourceTile->method('hasArmy')->willReturn(true);
         $sourceTile->expects($sourceTileSpy = $this->any())->method('setArmy');
         $army = new Army($player, $sourceTile, 20);
         $sourceTile->method('getArmy')->willReturn($army);
@@ -143,6 +145,7 @@ class MoveArmyTest extends AbstractTestCase
         $sourceTile->method('getNearestTiles')->willReturn([$targetTile]);
         $army = new Army($player, $sourceTile, 1);
         $sourceTile->method('getArmy')->willReturn($army);
+        $sourceTile->method('hasArmy')->willReturn(true);
 
         $command = new MoveArmy($sourceTile, $targetTile, 2);
         $this->expectException(MoveOverNumberOfUnitsException::class);
@@ -191,5 +194,15 @@ class MoveArmyTest extends AbstractTestCase
         $this->expectException(InapplicableActionException::class);
         $command->execute($player);
     }
+
+    public function testMoveFromTileWithoutArmy()
+    {
+        $sourceTile = $this->createMock(Tile::class);
+        $targetTile = $this->createMock(Tile::class);
+        $command = new MoveArmy($sourceTile, $targetTile, 20);
+        $this->expectException(InapplicableActionException::class);
+        $command->execute($this->createMock(PlayerInterface::class));
+    }
+
 
 }

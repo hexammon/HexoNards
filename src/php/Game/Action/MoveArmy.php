@@ -39,6 +39,9 @@ class MoveArmy implements PlayerActionInterface
 
     public function execute(PlayerInterface $player)
     {
+        if (!$this->source->hasArmy()) {
+            throw new InapplicableActionException();
+        }
         $army = $this->source->getArmy();
         if ($player !== $army->getOwner()) {
             throw new TouchForeignOwnException();
@@ -51,7 +54,7 @@ class MoveArmy implements PlayerActionInterface
             if ($this->units > $army->count()) {
                 throw new MoveOverNumberOfUnitsException();
             }
-            if($this->units < $army->count()) {
+            if ($this->units < $army->count()) {
                 $remainder = $army->divide($army->count() - $this->units);
             }
         }
