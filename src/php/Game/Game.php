@@ -39,6 +39,11 @@ class Game
         $this->moveCounter = new MovesCounter($this->ruleSet->getMoveGenerator(), new \ArrayIterator($players));
     }
 
+    public function getRuleSet(): RuleSetInterface
+    {
+        return $this->ruleSet;
+    }
+
     public function getActivePlayer(): PlayerInterface
     {
         return $this->moveCounter->getCurrent();
