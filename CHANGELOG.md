@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
-## [Unreleased] 
+## [Unreleased]  
+
 ### Fixed
 - One unit army moving: bug with zero-size army after move.
 - Check number of units in MoveArmy action.
@@ -16,7 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Game accept RuleSetInterface instance in third argument instead MoveGenerator. 
 
 ### Added
-- RuleSetInterface - aggregator of rules package classes.     
+- RuleSetInterface - aggregator of rules package classes.
+- PlayerInterface.getId() method.     
 
 ## 1.0.0-alpha.4 - 2017-11-29
 ### Added 

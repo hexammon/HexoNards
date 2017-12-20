@@ -7,5 +7,5 @@ namespace Hexammon\HexoNards\Game;
  */
 interface PlayerInterface
 {
-
+    public function getId();
 }
