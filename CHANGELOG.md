@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ## [Unreleased]  
+ 
+## [1.0.0-alpha.5 - 2017-12-20]  
 
 ### Fixed
 - One unit army moving: bug with zero-size army after move.
