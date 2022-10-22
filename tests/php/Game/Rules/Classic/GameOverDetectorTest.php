@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexammon\HexoNardsTests\Game\Rules;
+namespace Hexammon\HexoNardsTests\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Board\Column;
@@ -10,11 +10,11 @@ use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 use Hexammon\HexoNards\Game\PlayerInterface;
-use Hexammon\HexoNards\Game\Rules\ClassicGameOverDetector;
+use Hexammon\HexoNards\Game\Rules\Classic\GameOverDetector;
 use Hexammon\HexoNards\Game\Rules\Exception\GameNotOverException;
 use Hexammon\HexoNardsTests\AbstractTestCase;
 
-class ClassicGameOverDetectorTest extends AbstractTestCase
+class GameOverDetectorTest extends AbstractTestCase
 {
 
     public function testIsOver_with_one_player_armies()
@@ -35,7 +35,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
             $player1,
             $player2
         ], $board, $this->createRuleSet($movesGenerator));
-        $detector = new ClassicGameOverDetector();
+        $detector = new GameOverDetector();
         $this->assertTrue($detector->isOver($game));
     }
 
@@ -58,7 +58,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
             $player2
         ], $board, $this->createRuleSet($movesGenerator));
 
-        $detector = new ClassicGameOverDetector();
+        $detector = new GameOverDetector();
         $this->assertFalse($detector->isOver($game));
     }
 
@@ -81,7 +81,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
             $player1,
             $player2
         ], $board, $this->createRuleSet($movesGenerator));
-        $detector = new ClassicGameOverDetector();
+        $detector = new GameOverDetector();
         $this->assertSame($player1, $detector->getWinner($game));
     }
 
@@ -104,7 +104,7 @@ class ClassicGameOverDetectorTest extends AbstractTestCase
             $player2
         ], $board, $this->createRuleSet($movesGenerator));
 
-        $detector = new ClassicGameOverDetector();
+        $detector = new GameOverDetector();
         $this->expectException(GameNotOverException::class);
         $detector->getWinner($game);
     }

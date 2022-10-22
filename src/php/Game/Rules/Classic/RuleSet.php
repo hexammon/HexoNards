@@ -1,13 +1,15 @@
 <?php
 
-namespace Hexammon\HexoNards\Game\Rules;
+namespace Hexammon\HexoNards\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 use Hexammon\HexoNards\Game\Move\Random\RandomMoveGeneratorAdapter;
 use Hexammon\HexoNards\Game\Move\Random\TwoDice;
+use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
+use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
 
-class ClassicRuleSet implements RuleSetInterface
+class RuleSet implements RuleSetInterface
 {
 
     private $initialSetting;
@@ -16,9 +18,9 @@ class ClassicRuleSet implements RuleSetInterface
 
     public function __construct()
     {
-        $this->initialSetting = new ClassicInitialSetting();
+        $this->initialSetting = new InitialSetting();
         $this->moveGenerator = new RandomMoveGeneratorAdapter(new TwoDice());
-        $this->gameOverDetector = new ClassicGameOverDetector();
+        $this->gameOverDetector = new GameOverDetector();
     }
 
     public function getInitialSetting(): InitialSettingInterface

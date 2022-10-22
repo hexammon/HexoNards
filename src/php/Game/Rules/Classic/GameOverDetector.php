@@ -1,14 +1,15 @@
 <?php
 
-namespace Hexammon\HexoNards\Game\Rules;
+namespace Hexammon\HexoNards\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
 use Hexammon\HexoNards\Game\Rules\Exception\GameNotOverException;
+use Hexammon\HexoNards\Game\Rules\GameOverDetectorInterface;
 
-class ClassicGameOverDetector implements GameOverDetectorInterface
+class GameOverDetector implements GameOverDetectorInterface
 {
 
     /**

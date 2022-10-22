@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexammon\HexoNards\Game\Rules;
+namespace Hexammon\HexoNards\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Board\Board;
@@ -8,11 +8,12 @@ use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Castle;
 use Hexammon\HexoNards\Game\Exception\UnsupportedConfigurationException;
 use Hexammon\HexoNards\Game\Game;
+use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class ClassicInitialSetting implements InitialSettingInterface
+class InitialSetting implements InitialSettingInterface
 {
 
     private $tileDetectionCallbacks;

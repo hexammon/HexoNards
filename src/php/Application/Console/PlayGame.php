@@ -10,12 +10,9 @@ use Hexammon\HexoNards\Game\Action\MoveArmy;
 use Hexammon\HexoNards\Game\Action\ReplenishGarrison;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
-use Hexammon\HexoNards\Game\Rules\ClassicRuleSet;
-use SebastianBergmann\CodeCoverage\Report\PHP;
+use Hexammon\HexoNards\Game\Rules\Classic\RuleSet;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Cursor;
 use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,8 +28,8 @@ class PlayGame extends Command
     private const NUMBER_OF_COLS    = 'cols';
 
     private const DEFAULT_PLAYERS = 2;
-    private const DEFAULT_ROWS    = 8;
-    private const DEFAULT_COLS    = 8;
+    private const DEFAULT_ROWS    = 4;
+    private const DEFAULT_COLS    = 4;
 
     protected function configure()
     {
@@ -69,7 +66,7 @@ class PlayGame extends Command
 
         $game = new Game($players, $board);
 
-        $ruleSet = new ClassicRuleSet();
+        $ruleSet = new RuleSet();
         $ruleSet->getInitialSetting()->arrangePieces($game);
 
         $this->outputBoard($board, $output);

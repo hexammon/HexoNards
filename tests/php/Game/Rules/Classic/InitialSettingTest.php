@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexammon\HexoNardsTests\Game\Rules;
+namespace Hexammon\HexoNardsTests\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Board\Hex\Tile;
@@ -8,13 +8,13 @@ use Hexammon\HexoNards\Game\Exception\UnsupportedConfigurationException;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
 use Hexammon\HexoNards\Game\PlayerInterface;
-use Hexammon\HexoNards\Game\Rules\ClassicInitialSetting;
+use Hexammon\HexoNards\Game\Rules\Classic\InitialSetting;
 use Hexammon\HexoNardsTests\AbstractTestCase;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
  */
-class ClassicInitialSettingTest extends AbstractTestCase
+class InitialSettingTest extends AbstractTestCase
 {
 
     public function testArrangePiecesFor2PlayersOnHexBoard_6_6()
@@ -27,7 +27,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
         $game = new Game([$player1, $player2], $board, $this->createRuleSet($moveGenerator));
-        $initialSettingService = new ClassicInitialSetting();
+        $initialSettingService = new InitialSetting();
         $initialSettingService->arrangePieces($game);
 
         $player1castle = $board->getTileByCoordinates('1.6')->getCastle();
@@ -48,7 +48,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
         $game = new Game([$player1, $player2, $player3, $player4], $board, $this->createRuleSet($moveGenerator));
-        $initialSettingService = new ClassicInitialSetting();
+        $initialSettingService = new InitialSetting();
         $initialSettingService->arrangePieces($game);
 
         $player1castle = $board->getTileByCoordinates('1.8')->getCastle();
@@ -66,7 +66,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
         $game = new Game([$player1, $player2], $board, $this->createRuleSet($moveGenerator));
-        $initialSettingService = new ClassicInitialSetting();
+        $initialSettingService = new InitialSetting();
         $initialSettingService->arrangePieces($game);
 
         $player1castle = $board->getTileByCoordinates('1.6')->getCastle();
@@ -87,7 +87,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
         $game = new Game([$player1, $player2, $player3, $player4], $board, $this->createRuleSet($moveGenerator));
-        $initialSettingService = new ClassicInitialSetting();
+        $initialSettingService = new InitialSetting();
         $initialSettingService->arrangePieces($game);
 
         $player1Castle = $board->getTileByCoordinates('1.3')->getCastle();
@@ -111,7 +111,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
         $moveGenerator = $this->createMock(MoveGeneratorInterface::class);
 
         $game = new Game([$player1, $player2, $player3, $player4], $board, $this->createRuleSet($moveGenerator));
-        $initialSettingService = new ClassicInitialSetting();
+        $initialSettingService = new InitialSetting();
         $initialSettingService->arrangePieces($game);
 
         $player1castle = $board->getTileByCoordinates('1.8')->getCastle();
@@ -122,7 +122,7 @@ class ClassicInitialSettingTest extends AbstractTestCase
 
     public function testUnsupportedNumberOfPlayersException()
     {
-        $initialSettingService = new ClassicInitialSetting();
+        $initialSettingService = new InitialSetting();
         $game = $this->createMock(Game::class);
         $game->method('getPlayers')->willReturn([
             $this->createMock(PlayerInterface::class),
