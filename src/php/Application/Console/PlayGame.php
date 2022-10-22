@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hexammon\HexoNards\Application\Console;
 
+use Hexammon\HexoNards\Application\I18n\HelpMessages;
+use Hexammon\HexoNards\Application\I18n\Questions;
+use Hexammon\HexoNards\Application\I18n\Translation;
 use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Board\BoardBuilder;
 use Hexammon\HexoNards\Game\Action\MoveArmy;
@@ -30,6 +33,13 @@ class PlayGame extends Command
     private const DEFAULT_PLAYERS = 2;
     private const DEFAULT_ROWS    = 4;
     private const DEFAULT_COLS    = 4;
+    private Translation $translation;
+
+    public function __construct(Translation $translation)
+    {
+        $this->translation = $translation;
+        parent::__construct('game:play');
+    }
 
     protected function configure()
     {
@@ -73,11 +83,11 @@ class PlayGame extends Command
 
         while (!$ruleSet->isGameOver($game)) {
             $activePlayer = $game->getActivePlayer();
-            $questionHelper->ask($input, $output, new ConfirmationQuestion('Throw dices, player ' . $activePlayer->getId()));
+            $questionHelper->ask($input, $output, new ConfirmationQuestion($this->translation->translate(Questions::THROW_DICES_PLAYER, $activePlayer->getId())));
             $moves = $game->getMoveCounter()->count();
-            $output->writeln('You have ' . $moves . ' moves');
+            $output->writeln(HelpMessages::PLAYER_HAVE_MOVES, $moves);
             for ($move = 1; $move <= $moves; $move++) {
-                $output->writeln('Player ' . $activePlayer->getId() . ' do move ' . $move . '/' . $moves);
+                $output->writeln($this->translation->translate(HelpMessages::PLAYER_DO_MOVE, $activePlayer->getId(), $move, $moves));
                 $this->doNextAction($game, $moves, $output, $input);
                 $this->outputBoard($board, $output);
             }
@@ -138,24 +148,24 @@ class PlayGame extends Command
             $availableActions[] = 'move';
         }
 
-        $choice = $questionHelper->ask($input, $output, new ChoiceQuestion('What will you do?', $availableActions));
+        $choice = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::WHAT_DO_YOUR_DO), $availableActions));
         switch ($choice) {
             case 'spawn':
                 $castlesCoords = $this->collectPlayerCastlesCoords($game->getBoard(), $activePlayer);
-                $coords = $questionHelper->ask($input, $output, new ChoiceQuestion('Choice castle for replenish', $castlesCoords));
+                $coords = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::CHOICE_CASTLE), $castlesCoords));
                 $action = new ReplenishGarrison($game->getBoard()->getTileByCoordinates($coords)->getArmy());
                 break;
             case 'move':
-                $coords = $questionHelper->ask($input, $output, new ChoiceQuestion('Choice army for moving', $movablePlayerArmiesCoordinates));
+                $coords = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::CHOICE_ARMY), $movablePlayerArmiesCoordinates));
                 $nearestTiles = [];
                 $sourceTile = $game->getBoard()->getTileByCoordinates($coords);
                 foreach ($sourceTile->getNearestTiles() as $tile) {
                     $nearestTiles[] = $tile->getCoordinates();
                 }
-                $targetCoords = $questionHelper->ask($input, $output, new ChoiceQuestion('Choice target tile', $nearestTiles));
+                $targetCoords = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::CHOICE_TARGET), $nearestTiles));
                 $targetTile = $game->getBoard()->getTileByCoordinates($targetCoords);
 
-                $units = (int)$questionHelper->ask($input, $output, new Question('Enter number of units for moving [1-' . $sourceTile->getArmy()->count() . ']'));
+                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $sourceTile->getArmy()->count())));
 
                 $action = new MoveArmy($sourceTile, $targetTile, $units);
                 break;
