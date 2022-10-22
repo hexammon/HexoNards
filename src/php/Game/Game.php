@@ -68,4 +68,9 @@ class Game
         return $this->board;
     }
 
+    public function getMoveCounter(): MovesCounter
+    {
+        return $this->moveCounter;
+    }
+
 }
