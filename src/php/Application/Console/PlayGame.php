@@ -60,7 +60,7 @@ class PlayGame extends Command
 //        $cols = (int)$questionHelper->ask($input, $output, $colsQuestion);
 
         $players = [];
-        for ($number = 1; $number++ <= $numberOfPlayers;) {
+        for ($number = 1; $number <= $numberOfPlayers; $number++) {
             $players[] = new NumberedPlayer($number);
         }
 
@@ -75,8 +75,15 @@ class PlayGame extends Command
         $this->outputBoard($board, $output);
 
         while (!$ruleSet->isGameOver($game)) {
-            $this->doNextMove($game, $output, $input);
-            $this->outputBoard($board, $output);
+            $activePlayer = $game->getActivePlayer();
+            $questionHelper->ask($input, $output, new ConfirmationQuestion('Throw dices, player ' . $activePlayer->getId()));
+            $moves = $game->getMoveCounter()->count();
+            $output->writeln('You have ' . $moves . ' moves');
+            for ($move = 1; $move <= $moves; $move++) {
+                $output->writeln('Player ' . $activePlayer->getId() . ' do move ' . $move . '/' . $moves);
+                $this->doNextAction($game, $moves, $output, $input);
+                $this->outputBoard($board, $output);
+            }
         }
 
         return 0;
@@ -104,8 +111,11 @@ class PlayGame extends Command
             foreach ($row->getTiles() as $tile) {
                 $coords = $tile->getCoordinates();
                 if ($tile->hasCastle()) {
-                    $castleArmyValue = str_pad((string)$tile->getCastle()->getArmy()->count(), 3, ' ', STR_PAD_BOTH);
+                    $castleArmyValue = str_pad((string)$tile->getArmy()->count(), 3, ' ', STR_PAD_BOTH);
                     $output->write(sprintf('[%s]|', $castleArmyValue));
+                } elseif ($tile->hasArmy()) {
+                    $fieldArmyValue = str_pad((string)$tile->getArmy()->count(), 5, ' ', STR_PAD_BOTH);
+                    $output->write(sprintf('%s|', $fieldArmyValue));
                 } else {
                     $output->write('     |');
                 }
@@ -116,18 +126,17 @@ class PlayGame extends Command
         }
     }
 
-    private function doNextMove(Game $game, OutputInterface $output, InputInterface $input)
+    private function doNextAction(Game $game, int $moves, OutputInterface $output, InputInterface $input)
     {
         /**@var QuestionHelper $questionHelper */
         $questionHelper = $this->getHelper('question');
 
         $activePlayer = $game->getActivePlayer();
-        $questionHelper->ask($input, $output, new ConfirmationQuestion('Throw dices, player ' . $activePlayer->getId()));
 
         $availableActions = [
             'spawn',
         ];
-        $movablePlayerArmiesCoordinates = $this->collectMoveblePlayerArmiesCoordinates($game->getBoard(), $activePlayer);
+        $movablePlayerArmiesCoordinates = $this->collectMovablePlayerArmiesCoordinates($game->getBoard(), $activePlayer);
         if (count($movablePlayerArmiesCoordinates)) {
             $availableActions[] = 'move';
         }
@@ -135,12 +144,7 @@ class PlayGame extends Command
         $choice = $questionHelper->ask($input, $output, new ChoiceQuestion('What will you do?', $availableActions));
         switch ($choice) {
             case 'spawn':
-                $castlesCoords = [];
-                foreach ($game->getBoard()->getTiles() as $tile) {
-                    if ($tile->hasCastle() && $tile->getCastle()->getOwner() === $activePlayer) {
-                        $castlesCoords[] = $tile->getCoordinates();
-                    }
-                }
+                $castlesCoords = $this->collectPlayerCastlesCoords($game->getBoard(), $activePlayer);
                 $coords = $questionHelper->ask($input, $output, new ChoiceQuestion('Choice castle for replenish', $castlesCoords));
                 $action = new ReplenishGarrison($game->getBoard()->getTileByCoordinates($coords)->getArmy());
                 break;
@@ -154,7 +158,7 @@ class PlayGame extends Command
                 $targetCoords = $questionHelper->ask($input, $output, new ChoiceQuestion('Choice target tile', $nearestTiles));
                 $targetTile = $game->getBoard()->getTileByCoordinates($targetCoords);
 
-                $units = $questionHelper->ask($input, $output, new Question('Enter number of units for moving [1-' . $sourceTile->getArmy()->count() . ']'));
+                $units = (int)$questionHelper->ask($input, $output, new Question('Enter number of units for moving [1-' . $sourceTile->getArmy()->count() . ']'));
 
                 $action = new MoveArmy($sourceTile, $targetTile, $units);
                 break;
@@ -165,7 +169,7 @@ class PlayGame extends Command
         $game->invoke($action);
     }
 
-    private function collectMoveblePlayerArmiesCoordinates(Board $board, PlayerInterface $activePlayer): array
+    private function collectMovablePlayerArmiesCoordinates(Board $board, PlayerInterface $activePlayer): array
     {
         $armies = [];
         foreach ($board->getTiles() as $tile) {
@@ -178,6 +182,18 @@ class PlayGame extends Command
         }
 
         return $armies;
+    }
+
+    private function collectPlayerCastlesCoords(Board $board, PlayerInterface $activePlayer): array
+    {
+        $castlesCoords = [];
+        foreach ($board->getTiles() as $tile) {
+            if ($tile->hasCastle() && $tile->getCastle()->getOwner() === $activePlayer) {
+                $castlesCoords[] = $tile->getCoordinates();
+            }
+        }
+
+        return $castlesCoords;
     }
 }
 
