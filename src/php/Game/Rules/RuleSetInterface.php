@@ -13,4 +13,6 @@ interface RuleSetInterface
     public function getMoveGenerator(): MoveGeneratorInterface;
 
     public function isGameOver(Game $game): bool;
+
+    public function getMovableArmiesCollector(): MovableArmiesCollectorInterface;
 }

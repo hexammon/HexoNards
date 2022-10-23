@@ -11,6 +11,7 @@ use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Board\BoardBuilder;
 use Hexammon\HexoNards\Game\Action\MoveArmy;
 use Hexammon\HexoNards\Game\Action\ReplenishGarrison;
+use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
 use Hexammon\HexoNards\Game\Rules\Classic\RuleSet;
@@ -143,7 +144,7 @@ class PlayGame extends Command
         $availableActions = [
             'spawn',
         ];
-        $movablePlayerArmiesCoordinates = $this->collectMovablePlayerArmiesCoordinates($game->getBoard(), $activePlayer);
+        $movablePlayerArmiesCoordinates = $this->collectMovablePlayerArmiesCoordinates($game, $activePlayer);
         if (count($movablePlayerArmiesCoordinates)) {
             $availableActions[] = 'move';
         }
@@ -176,19 +177,12 @@ class PlayGame extends Command
         $game->invoke($action);
     }
 
-    private function collectMovablePlayerArmiesCoordinates(Board $board, PlayerInterface $activePlayer): array
+    private function collectMovablePlayerArmiesCoordinates(Game $game, PlayerInterface $activePlayer): array
     {
-        $armies = [];
-        foreach ($board->getTiles() as $tile) {
-            if ($tile->hasArmy() && $tile->getArmy()->getOwner() === $activePlayer) {
-                if ($tile->hasArmy() && $tile->getArmy()->count() === 1) {
-                    continue;
-                }
-                $armies[] = $tile->getCoordinates();
-            }
-        }
-
-        return $armies;
+        $armies = $game->getRuleSet()->getMovableArmiesCollector()->getMovableArmies($game->getBoard(), $activePlayer);
+        return array_map(function (Army $army) {
+            return $army->getTile()->getCoordinates();
+        }, $armies);
     }
 
     private function collectPlayerCastlesCoords(Board $board, PlayerInterface $activePlayer): array
