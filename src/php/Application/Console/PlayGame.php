@@ -11,6 +11,7 @@ use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Board\BoardBuilder;
 use Hexammon\HexoNards\Game\Action\MoveArmy;
 use Hexammon\HexoNards\Game\Action\ReplenishGarrison;
+use Hexammon\HexoNards\Game\Action\Variant\Movement;
 use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
@@ -35,6 +36,15 @@ class PlayGame extends Command
     private const DEFAULT_ROWS    = 4;
     private const DEFAULT_COLS    = 4;
     private Translation $translation;
+
+    private const DICE_SYMBOLS = [
+        1 => '⚀',
+        2 => '⚁',
+        3 => '⚂',
+        4 => '⚃',
+        5 => '⚄',
+        6 => '⚅',
+    ];
 
     public function __construct(Translation $translation)
     {
@@ -86,7 +96,7 @@ class PlayGame extends Command
             $activePlayer = $game->getActivePlayer();
             $questionHelper->ask($input, $output, new ConfirmationQuestion($this->translation->translate(Questions::THROW_DICES_PLAYER, $activePlayer->getId())));
             $moves = $game->getMoveCounter()->count();
-            $output->writeln(HelpMessages::PLAYER_HAVE_MOVES, $moves);
+            $output->writeln($this->translation->translate(HelpMessages::PLAYER_HAVE_MOVES, self::DICE_SYMBOLS[$moves], $moves));
             for ($move = 1; $move <= $moves; $move++) {
                 $output->writeln($this->translation->translate(HelpMessages::PLAYER_DO_MOVE, $activePlayer->getId(), $move, $moves));
                 $this->doNextAction($game, $moves, $output, $input);
@@ -141,60 +151,36 @@ class PlayGame extends Command
 
         $activePlayer = $game->getActivePlayer();
 
-        $availableActions = [
-            'spawn',
-        ];
-        $movablePlayerArmiesCoordinates = $this->collectMovablePlayerArmiesCoordinates($game, $activePlayer);
-        if (count($movablePlayerArmiesCoordinates)) {
-            $availableActions[] = 'move';
+        $actionVariants = $game->getRuleSet()->getActionVariantsCollector()->getActionVariants($game);
+        $availableActions = [];
+        $variantsMap = [];
+
+        foreach ($actionVariants->getSpawnVariants() as $spawnVariant) {
+            $optionDescription = 'spawn at ' . $spawnVariant->getTargetTile()->getCoordinates();
+            $availableActions[] = $optionDescription;
+            $variantsMap[$optionDescription] = $spawnVariant;
+        }
+        foreach ($actionVariants->getMovementVariants() as $movementVariant) {
+            $optionDescription = 'move from ' . $movementVariant->getSource()->getCoordinates() . ' to ' . $movementVariant->getTarget()->getCoordinates();
+            $availableActions[] = $optionDescription;
+            $variantsMap[$optionDescription] = $movementVariant;
         }
 
         $choice = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::WHAT_DO_YOUR_DO), $availableActions));
-        switch ($choice) {
-            case 'spawn':
-                $castlesCoords = $this->collectPlayerCastlesCoords($game->getBoard(), $activePlayer);
-                $coords = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::CHOICE_CASTLE), $castlesCoords));
-                $action = new ReplenishGarrison($game->getBoard()->getTileByCoordinates($coords)->getArmy());
-                break;
-            case 'move':
-                $coords = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::CHOICE_ARMY), $movablePlayerArmiesCoordinates));
-                $nearestTiles = [];
-                $sourceTile = $game->getBoard()->getTileByCoordinates($coords);
-                foreach ($sourceTile->getNearestTiles() as $tile) {
-                    $nearestTiles[] = $tile->getCoordinates();
-                }
-                $targetCoords = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::CHOICE_TARGET), $nearestTiles));
-                $targetTile = $game->getBoard()->getTileByCoordinates($targetCoords);
+        $selectedVariant = $variantsMap[$choice];
+        if ($selectedVariant instanceof Movement) {
+            if ($selectedVariant->getSource()->hasCastle()) {
+                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $selectedVariant->getSource()->getArmy()->count() - 1)));
+            } else {
+                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $selectedVariant->getSource()->getArmy()->count())));
+            }
 
-                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $sourceTile->getArmy()->count())));
-
-                $action = new MoveArmy($sourceTile, $targetTile, $units);
-                break;
-            case 'divide':
-                break;
+            $selectedVariant->setUnitsVolume($units);
         }
+
+        $action = $selectedVariant->makeAction();
 
         $game->invoke($action);
-    }
-
-    private function collectMovablePlayerArmiesCoordinates(Game $game, PlayerInterface $activePlayer): array
-    {
-        $armies = $game->getRuleSet()->getMovableArmiesCollector()->getMovableArmies($game->getBoard(), $activePlayer);
-        return array_map(function (Army $army) {
-            return $army->getTile()->getCoordinates();
-        }, $armies);
-    }
-
-    private function collectPlayerCastlesCoords(Board $board, PlayerInterface $activePlayer): array
-    {
-        $castlesCoords = [];
-        foreach ($board->getTiles() as $tile) {
-            if ($tile->hasCastle() && $tile->getCastle()->getOwner() === $activePlayer) {
-                $castlesCoords[] = $tile->getCoordinates();
-            }
-        }
-
-        return $castlesCoords;
     }
 }
 

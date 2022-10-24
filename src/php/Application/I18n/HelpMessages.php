@@ -6,6 +6,6 @@ namespace Hexammon\HexoNards\Application\I18n;
 
 class HelpMessages
 {
-    public const        PLAYER_HAVE_MOVES = 'You have %d moves';
-    public const        PLAYER_DO_MOVE    = 'Player %s do move %d/%d';
+    public const        PLAYER_HAVE_MOVES = '%s: у вас %d ходов';
+    public const        PLAYER_DO_MOVE    = 'Игрок %s делает ход %d/%d';
 }

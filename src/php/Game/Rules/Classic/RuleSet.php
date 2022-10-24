@@ -2,12 +2,13 @@
 
 namespace Hexammon\HexoNards\Game\Rules\Classic;
 
+use Hexammon\HexoNards\Game\BattleService;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\Move\Random\OneDice;
 use Hexammon\HexoNards\Game\Move\Random\RandomMoveGeneratorAdapter;
-use Hexammon\HexoNards\Game\Move\Random\TwoDice;
+use Hexammon\HexoNards\Game\Rules\ActionVariantsCollectorInterface;
 use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
-use Hexammon\HexoNards\Game\Rules\MovableArmiesCollectorInterface;
 use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
 
 class RuleSet implements RuleSetInterface
@@ -16,14 +17,14 @@ class RuleSet implements RuleSetInterface
     private $initialSetting;
     private $moveGenerator;
     private $gameOverDetector;
-    private MovableArmiesCollector $movableArmiesCollector;
+    private ActionVariantsCollector $actionVariantsCollector;
 
     public function __construct()
     {
         $this->initialSetting = new InitialSetting();
-        $this->moveGenerator = new RandomMoveGeneratorAdapter(new TwoDice());
+        $this->moveGenerator = new RandomMoveGeneratorAdapter(new OneDice());
         $this->gameOverDetector = new GameOverDetector();
-        $this->movableArmiesCollector = new MovableArmiesCollector();
+        $this->actionVariantsCollector = new ActionVariantsCollector(new BattleService());
     }
 
     public function getInitialSetting(): InitialSettingInterface
@@ -41,9 +42,8 @@ class RuleSet implements RuleSetInterface
         return $this->gameOverDetector->isOver($game);
     }
 
-
-    public function getMovableArmiesCollector(): MovableArmiesCollectorInterface
+    public function getActionVariantsCollector(): ActionVariantsCollectorInterface
     {
-        return $this->movableArmiesCollector;
+        return $this->actionVariantsCollector;
     }
 }

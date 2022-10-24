@@ -14,5 +14,5 @@ interface RuleSetInterface
 
     public function isGameOver(Game $game): bool;
 
-    public function getMovableArmiesCollector(): MovableArmiesCollectorInterface;
+    public function getActionVariantsCollector(): ActionVariantsCollectorInterface;
 }

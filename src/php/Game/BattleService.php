@@ -6,6 +6,7 @@ use Hexammon\HexoNards\Exception\DomainException;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
+ * TODO extract interface and move this implementation to Classic Ruleset
  */
 class BattleService
 {
