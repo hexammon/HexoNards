@@ -7,6 +7,7 @@ namespace Hexammon\HexoNards\Game\Rules\Classic;
 use Hexammon\HexoNards\Game\Action\ActionVariantsCollection;
 use Hexammon\HexoNards\Game\Action\Variant\Assault;
 use Hexammon\HexoNards\Game\Action\Variant\Attack;
+use Hexammon\HexoNards\Game\Action\Variant\DeductEnemyGarrison;
 use Hexammon\HexoNards\Game\Action\Variant\FoundCastle;
 use Hexammon\HexoNards\Game\Action\Variant\Movement;
 use Hexammon\HexoNards\Game\Action\Variant\Spawn;
@@ -38,9 +39,13 @@ class ActionVariantsCollector implements ActionVariantsCollectorInterface
                 $castle = $tile->getCastle();
                 if ($castle->getOwner() === $player && !$castle->isUnderSiege()) {
                     $actionVariantsCollection->addSpawn(new Spawn($castle));
-                } elseif ($castle->getOwner() !== $player && $castle->isUnderSiege() && $castle->getArmy()->count() === 1) {
-                    foreach ($castle->getTile()->getNearestTiles() as $nearestTile) {
-                        $actionVariantsCollection->addAssault(new Assault($castle, $nearestTile->getArmy()));
+                } elseif ($castle->getOwner() !== $player && $castle->isUnderSiege()) {
+                    if ($castle->getArmy()->count() === 1) {
+                        foreach ($castle->getTile()->getNearestTiles() as $nearestTile) {
+                            $actionVariantsCollection->addAssault(new Assault($castle, $nearestTile->getArmy()));
+                        }
+                    } else {
+                        $actionVariantsCollection->addDeductEnemyGarrison(new DeductEnemyGarrison($castle));
                     }
                 }
             }
@@ -64,22 +69,28 @@ class ActionVariantsCollector implements ActionVariantsCollectorInterface
 
         foreach ($playerArmies as $army) {
             $tile = $army->getTile();
-            if($tile->hasCastle()) {
+            if ($tile->hasCastle()) {
                 continue;
             }
+            $canFound = true;
             foreach ($tile->getNearestTiles() as $nearestTile) {
-                if($nearestTile->hasCastle() || $nearestTile->hasArmy() && $nearestTile->getArmy()->getOwner() !== $player) {
+                if ($nearestTile->hasCastle() || $nearestTile->hasArmy() && $nearestTile->getArmy()->getOwner() !== $player) {
+                    $canFound = false;
                     break;
                 }
                 foreach ($nearestTile->getNearestTiles() as $secondDistanceTile) {
-                    if($secondDistanceTile->hasCastle() || $secondDistanceTile->hasCastle() && $secondDistanceTile->getArmy()->getOwner() !== $player) {
+                    if ($secondDistanceTile->hasCastle() || $secondDistanceTile->hasCastle() && $secondDistanceTile->getArmy()->getOwner() !== $player) {
+                        $canFound = false;
                         break 2;
                     }
                 }
             }
-            $actionVariantsCollection->addBuildCastle(new FoundCastle($tile));
+            if ($canFound) {
+                $actionVariantsCollection->addFoundCastle(new FoundCastle($tile));
+            }
         }
 
         return $actionVariantsCollection;
     }
+
 }

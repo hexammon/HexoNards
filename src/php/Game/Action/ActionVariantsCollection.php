@@ -6,6 +6,7 @@ namespace Hexammon\HexoNards\Game\Action;
 
 use Hexammon\HexoNards\Game\Action\Variant\Assault;
 use Hexammon\HexoNards\Game\Action\Variant\Attack;
+use Hexammon\HexoNards\Game\Action\Variant\DeductEnemyGarrison;
 use Hexammon\HexoNards\Game\Action\Variant\FoundCastle;
 use Hexammon\HexoNards\Game\Action\Variant\Movement;
 use Hexammon\HexoNards\Game\Action\Variant\Spawn;
@@ -17,17 +18,12 @@ class ActionVariantsCollection implements ActionVariantsCollectionInterface
     private array $moveVariants = [];
     private array $attackVariants = [];
     private array $assaultVariants = [];
-    private array $buildCastle = [];
-    private array $takeOffEnemyGarrison = [];
+    private array $foundCastleVariants = [];
+    private array $deductEnemyGarrison = [];
 
     public function addSpawn(Spawn $spawn)
     {
         $this->spawnVariants[] = $spawn;
-    }
-
-    public function addMovement(Movement $move)
-    {
-        $this->moveVariants[] = $move;
     }
 
     public function hasSpawn(): bool
@@ -35,19 +31,39 @@ class ActionVariantsCollection implements ActionVariantsCollectionInterface
         return count($this->spawnVariants) > 0;
     }
 
+    public function getSpawnVariants(): array
+    {
+        return $this->spawnVariants;
+    }
+
+    public function addMovement(Movement $move)
+    {
+        $this->moveVariants[] = $move;
+    }
+
     public function hasMovement(): bool
     {
         return count($this->moveVariants) > 0;
     }
 
-    public function addBuildCastle(FoundCastle $buildCastle): void
+    public function getMovementVariants(): array
     {
-        $this->buildCastle[] = $buildCastle;
+        return $this->moveVariants;
     }
 
-    public function hasBuildCastle(): bool
+    public function addFoundCastle(FoundCastle $buildCastle): void
     {
-        return count($this->buildCastle) > 0;
+        $this->foundCastleVariants[] = $buildCastle;
+    }
+
+    public function hasFoundCastle(): bool
+    {
+        return count($this->foundCastleVariants) > 0;
+    }
+
+    public function getFoundCastleVariants(): array
+    {
+        return $this->foundCastleVariants;
     }
 
     public function addAssault(Assault $assault): void
@@ -60,28 +76,28 @@ class ActionVariantsCollection implements ActionVariantsCollectionInterface
         return count($this->assaultVariants) > 0;
     }
 
-    public function hasTakeOffEnemyGarrison(): bool
+    public function addDeductEnemyGarrison(DeductEnemyGarrison $deductEnemyGarrison): void
     {
-        return count($this->takeOffEnemyGarrison) > 0;
+        $this->deductEnemyGarrison[] = $deductEnemyGarrison;
     }
 
-    public function hasAttack(): bool
+    public function hasDeductEnemyGarrison(): bool
     {
-        return count($this->attackVariants) > 0;
+        return count($this->deductEnemyGarrison) > 0;
     }
 
-    public function getSpawnVariants(): array
+    public function getDeductEnemyGarrisonVariants(): array
     {
-        return $this->spawnVariants;
-    }
-
-    public function getMovementVariants(): array
-    {
-        return $this->moveVariants;
+        return $this->deductEnemyGarrison;
     }
 
     public function addAttackVariant(Attack $attack): void
     {
         $this->attackVariants[] = $attack;
+    }
+
+    public function hasAttack(): bool
+    {
+        return count($this->attackVariants) > 0;
     }
 }
