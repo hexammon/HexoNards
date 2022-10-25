@@ -192,10 +192,14 @@ class PlayGame extends Command
         $choice = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::WHAT_DO_YOUR_DO), $availableActions));
         $selectedVariant = $variantsMap[$choice];
         if ($selectedVariant instanceof Movement) {
+            $limitUnitsToMove = $selectedVariant->getSource()->getArmy()->count();
             if ($selectedVariant->getSource()->hasCastle()) {
-                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $selectedVariant->getSource()->getArmy()->count() - 1)));
+                $limitUnitsToMove = $limitUnitsToMove - 1;
+            }
+            if ($limitUnitsToMove > 1) {
+                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $limitUnitsToMove)));
             } else {
-                $units = (int)$questionHelper->ask($input, $output, new Question($this->translation->translate(Questions::CHOISE_HOW_MATCH, $selectedVariant->getSource()->getArmy()->count())));
+                $units = $limitUnitsToMove;
             }
 
             $selectedVariant->setUnitsVolume($units);

@@ -44,13 +44,13 @@ class Army implements \Countable
         return $this->numberOfUnits;
     }
 
-    public static function merge(Army &$army, Army &$anotherArmy): Army
+    public static function merge(Army &$target, Army &$anotherArmy): Army
     {
-        if (false === $army->isSameOwner($anotherArmy)) {
+        if (false === $target->isSameOwner($anotherArmy)) {
             throw new DomainException('Can not merge with enemy. ');
         }
-        $newArmy = new self($army->getOwner(), $army->getTile(), $army->numberOfUnits + $anotherArmy->numberOfUnits);
-        $army = null;
+        $newArmy = new self($target->getOwner(), $target->getTile(), $target->numberOfUnits + $anotherArmy->numberOfUnits);
+        $target = null;
         $anotherArmy = null;
         return $newArmy;
     }
