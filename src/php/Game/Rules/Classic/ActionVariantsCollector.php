@@ -54,13 +54,16 @@ class ActionVariantsCollector implements ActionVariantsCollectorInterface
         $playerArmies = $board->getPlayerArmies($player);
         foreach ($playerArmies as $army) {
             $source = $army->getTile();
+            if ($source->hasCastle() && $source->getArmy()->count() === 1) {
+                continue;
+            }
+
             foreach ($source->getNearestTiles() as $target) {
-                if ($tile->hasCastle() && $tile->getArmy()->count() === 1) {
-                    continue;
-                }
                 $enemyOnNearestTile = $target->hasArmy() && $target->getArmy()->getOwner() !== $player;
                 if ($enemyOnNearestTile) {
-                    $actionVariantsCollection->addAttackVariant(new Attack($army, $target->getArmy(), $this->battleService));
+                    if(!$target->hasCastle()) {
+                        $actionVariantsCollection->addAttackVariant(new Attack($army, $target->getArmy(), $this->battleService));
+                    }
                 } else {
                     $actionVariantsCollection->addMovement(new Movement($source, $target));
                 }

@@ -22,4 +22,9 @@ class FoundCastle implements ActionVariantInterface
     {
         return new BuildCastle($this->tile);
     }
+
+    public function getTargetTile(): AbstractTile
+    {
+        return $this->tile;
+    }
 }

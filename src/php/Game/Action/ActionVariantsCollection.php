@@ -76,6 +76,11 @@ class ActionVariantsCollection implements ActionVariantsCollectionInterface
         return count($this->assaultVariants) > 0;
     }
 
+    public function getAssaultVariants(): array
+    {
+        return $this->assaultVariants;
+    }
+
     public function addDeductEnemyGarrison(DeductEnemyGarrison $deductEnemyGarrison): void
     {
         $this->deductEnemyGarrison[] = $deductEnemyGarrison;
@@ -99,5 +104,10 @@ class ActionVariantsCollection implements ActionVariantsCollectionInterface
     public function hasAttack(): bool
     {
         return count($this->attackVariants) > 0;
+    }
+
+    public function getAttackVariants(): array
+    {
+        return $this->attackVariants;
     }
 }

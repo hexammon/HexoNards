@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hexammon\HexoNards\Game\Action\Variant;
 
+use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Game\Action\AttackEnemy;
 use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
 use Hexammon\HexoNards\Game\Army;
@@ -30,5 +31,15 @@ class Attack implements ActionVariantInterface
     public function makeAction(): PlayerActionInterface
     {
         return new AttackEnemy($this->assaulterArmy, $this->attackedArmy, $this->battleService);
+    }
+
+    public function getSourceTile(): AbstractTile
+    {
+        return $this->assaulterArmy->getTile();
+    }
+
+    public function getTargetTile(): AbstractTile
+    {
+        return $this->attackedArmy->getTile();
     }
 }

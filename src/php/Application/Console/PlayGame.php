@@ -123,7 +123,7 @@ class PlayGame extends Command
 
         $blankRow = str_repeat('     |', count($cols) + 1);
         foreach ($board->getRows() as $row) {
-            $output->writeln($blankRow);
+            $output->writeln(' pl. |' . str_repeat('     |', count($cols))); // TODO print players id in top of tile
             $rowHeader = sprintf('%s|', str_pad((string)$row->getNumber(), 5, ' ', STR_PAD_BOTH));
             $output->write($rowHeader);
             foreach ($row->getTiles() as $tile) {
@@ -149,21 +149,44 @@ class PlayGame extends Command
         /**@var QuestionHelper $questionHelper */
         $questionHelper = $this->getHelper('question');
 
-        $activePlayer = $game->getActivePlayer();
-
         $actionVariants = $game->getRuleSet()->getActionVariantsCollector()->getActionVariants($game);
         $availableActions = [];
         $variantsMap = [];
 
         foreach ($actionVariants->getSpawnVariants() as $spawnVariant) {
-            $optionDescription = 'spawn at ' . $spawnVariant->getTargetTile()->getCoordinates();
+            $optionDescription = 'Пополнить гарнизон на ' . $spawnVariant->getTargetTile()->getCoordinates();
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $spawnVariant;
         }
+
+        foreach ($actionVariants->getFoundCastleVariants() as $foundCastleVariant) {
+            $optionDescription = sprintf('Основать замок на %s', $foundCastleVariant->getTargetTile()->getCoordinates());
+            $availableActions[] = $optionDescription;
+            $variantsMap[$optionDescription] = $foundCastleVariant;
+        }
+
         foreach ($actionVariants->getMovementVariants() as $movementVariant) {
-            $optionDescription = 'move from ' . $movementVariant->getSource()->getCoordinates() . ' to ' . $movementVariant->getTarget()->getCoordinates();
+            $optionDescription = 'Передвинуть армию с ' . $movementVariant->getSource()->getCoordinates() . ' на ' . $movementVariant->getTarget()->getCoordinates();
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $movementVariant;
+        }
+
+        foreach ($actionVariants->getAttackVariants() as $attackVariant) {
+            $optionDescription = sprintf('Атаковать врага с %s на %s', $attackVariant->getSourceTile()->getCoordinates(), $attackVariant->getTargetTile()->getCoordinates());
+            $availableActions[] = $optionDescription;
+            $variantsMap[$optionDescription] = $attackVariant;
+        }
+
+        foreach ($actionVariants->getDeductEnemyGarrisonVariants() as $deductEnemyGarrisonVariant) {
+            $optionDescription = sprintf('Уменьшить вражеский осаждённый гарнизон на %s', $deductEnemyGarrisonVariant->getTargetTile()->getCoordinates());
+            $availableActions[] = $optionDescription;
+            $variantsMap[$optionDescription] = $deductEnemyGarrisonVariant;
+        }
+
+        foreach ($actionVariants->getAssaultVariants() as $assaultVariant) {
+            $optionDescription = sprintf('Захватить вражеский осаждённый замок на %s армией %s', $assaultVariant->getTargetTile()->getCoordinates(), $assaultVariant->getSourceTile()->getCoordinates());
+            $availableActions[] = $optionDescription;
+            $variantsMap[$optionDescription] = $assaultVariant;
         }
 
         $choice = $questionHelper->ask($input, $output, new ChoiceQuestion($this->translation->translate(Questions::WHAT_DO_YOUR_DO), $availableActions));
@@ -177,6 +200,7 @@ class PlayGame extends Command
 
             $selectedVariant->setUnitsVolume($units);
         }
+
 
         $action = $selectedVariant->makeAction();
 

@@ -6,6 +6,7 @@ namespace Hexammon\HexoNardsTests\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Board\BoardBuilder;
+use Hexammon\HexoNards\Game\Action\Variant\Movement;
 use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\BattleService;
 use Hexammon\HexoNards\Game\Castle;
@@ -26,8 +27,16 @@ class ActionVariantsCollectorTest extends AbstractTestCase
          Variants for player 1:
           - spawn at 1.1
           - spawn at 1.4
-          - move from 1.2
-          - move from 1.4
+          - move from 1.2 to
+            - 1.1
+            - 2.1
+            - 2.2
+            - 2.3
+            - 1.3
+          - move from 1.4 to
+            - 1.3
+            - 2.3
+            - 2.4
           - attack enemy at 3.3
           - attack enemy at 3.4
               |  1  |  2  |  3  |  4  |
@@ -80,8 +89,13 @@ class ActionVariantsCollectorTest extends AbstractTestCase
         $variants = $variantsCollector->getActionVariants($game);
 
         $this->assertTrue($variants->hasSpawn());
+        $this->assertCount(2, $variants->getSpawnVariants());
+
         $this->assertTrue($variants->hasMovement());
+        $this->assertCount(8, $variants->getMovementVariants());
+
         $this->assertTrue($variants->hasAttack());
+        $this->assertCount(2, $variants->getAttackVariants());
 
         $this->assertFalse($variants->hasFoundCastle());
         $this->assertFalse($variants->hasAssaultCastle());
@@ -98,7 +112,11 @@ class ActionVariantsCollectorTest extends AbstractTestCase
          Variants for player 1:
         - found castle at 1.4
         - take off enemy from 4.1
-        - assault at 4.4
+        - assault at 4.4 from
+            - 3.3
+            - 3.4
+            - 4.3
+
               |  1  |  2  |  3  |  4  |
           _____________________________
            pl |  1  |     |     |  1  |
@@ -114,7 +132,7 @@ class ActionVariantsCollectorTest extends AbstractTestCase
               |     |     |     |     |
           _____________________________
            pl |  2  |  1  |  1  |  2  |
-           4  |[ 2 ]| 10  |  10 |[ 1 ]|
+           4  |[ 2 ]| 10  | 10  |[ 1 ]|
               |     |     |     |     |
           _____________________________
          */
@@ -164,5 +182,8 @@ class ActionVariantsCollectorTest extends AbstractTestCase
 
         $this->assertTrue($variants->hasDeductEnemyGarrison());
         $this->assertCount(1, $variants->getDeductEnemyGarrisonVariants());
+
+        $this->assertTrue($variants->hasAssaultCastle());
+        $this->assertCount(3, $variants->getAssaultVariants());
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hexammon\HexoNards\Game\Action\Variant;
 
+use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Game\Action\AssaultCastle;
 use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
 use Hexammon\HexoNards\Game\Army;
@@ -24,5 +25,15 @@ class Assault implements ActionVariantInterface
     public function makeAction(): PlayerActionInterface
     {
         return new AssaultCastle($this->castle, $this->army);
+    }
+
+    public function getTargetTile(): AbstractTile
+    {
+        return $this->castle->getTile();
+    }
+
+    public function getSourceTile(): AbstractTile
+    {
+        return $this->army->getTile();
     }
 }

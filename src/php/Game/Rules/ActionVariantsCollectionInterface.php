@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hexammon\HexoNards\Game\Rules;
 
 use Hexammon\HexoNards\Game\Action\TakeOffEnemyGarrison;
+use Hexammon\HexoNards\Game\Action\Variant\Assault;
+use Hexammon\HexoNards\Game\Action\Variant\Attack;
 use Hexammon\HexoNards\Game\Action\Variant\DeductEnemyGarrison;
 use Hexammon\HexoNards\Game\Action\Variant\FoundCastle;
 use Hexammon\HexoNards\Game\Action\Variant\Movement;
@@ -35,6 +37,11 @@ interface ActionVariantsCollectionInterface /*extends \IteratorAggregate*/
 
     public function hasAssaultCastle(): bool;
 
+    /**
+     * @return array|Assault[]
+     */
+    public function getAssaultVariants(): array;
+
     public function hasDeductEnemyGarrison(): bool;
 
     /**
@@ -43,4 +50,9 @@ interface ActionVariantsCollectionInterface /*extends \IteratorAggregate*/
     public function getDeductEnemyGarrisonVariants(): array;
 
     public function hasAttack(): bool;
+
+    /**
+     * @return array|Attack[]
+     */
+    public function getAttackVariants(): array;
 }
