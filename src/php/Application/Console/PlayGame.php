@@ -123,7 +123,16 @@ class PlayGame extends Command
 
         $blankRow = str_repeat('     |', count($cols) + 1);
         foreach ($board->getRows() as $row) {
-            $output->writeln(' pl. |' . str_repeat('     |', count($cols))); // TODO print players id in top of tile
+            $output->write(' pl. |');
+            foreach ($row->getTiles() as $tile) {
+                if ($tile->hasArmy()) {
+                    $playerId = substr((string)$tile->getArmy()->getOwner()->getId(), 0, 1);
+                    $output->write(sprintf('  %s. |', $playerId));
+                } else {
+                    $output->write('     |');
+                }
+            }
+            $output->writeln('');
             $rowHeader = sprintf('%s|', str_pad((string)$row->getNumber(), 5, ' ', STR_PAD_BOTH));
             $output->write($rowHeader);
             foreach ($row->getTiles() as $tile) {
