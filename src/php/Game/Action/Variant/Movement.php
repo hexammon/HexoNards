@@ -45,7 +45,7 @@ class Movement implements UnitVolumeAwareActionVariantInterface
                 return new MergeArmy($sourceArmy, $targetArmy);
             } else {
                 $sourceArmy->deduct($this->units);
-                $division = new Army($sourceArmy->getOwner(), $sourceArmy->getTile(), $this->units);
+                $division = new Army($sourceArmy->getOwner(), $this->target, $this->units);
                 return new MergeArmy($division, $targetArmy);
             }
         }
