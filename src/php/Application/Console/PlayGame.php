@@ -92,6 +92,7 @@ class PlayGame extends Command
 
         $this->outputBoard($board, $output);
 
+
         while (!$ruleSet->isGameOver($game)) {
             $activePlayer = $game->getActivePlayer();
             $questionHelper->ask($input, $output, new ConfirmationQuestion($this->translation->translate(Questions::THROW_DICES_PLAYER, $activePlayer->getId())));
@@ -101,6 +102,11 @@ class PlayGame extends Command
                 $output->writeln($this->translation->translate(HelpMessages::PLAYER_DO_MOVE, $activePlayer->getId(), $move, $moves));
                 $this->doNextAction($game, $moves, $output, $input);
                 $this->outputBoard($board, $output);
+                if ($ruleSet->isGameOver($game)) {
+                    $winner = $ruleSet->getWinner($game);
+                    $winnerMessage = sprintf('Player %s won!', $winner->getId());
+                    $output->writeln($winnerMessage);
+                }
             }
         }
 
