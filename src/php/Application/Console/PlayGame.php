@@ -17,6 +17,7 @@ use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
 use Hexammon\HexoNards\Game\Rules\Classic\RuleSet;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -104,8 +105,11 @@ class PlayGame extends Command
                 $this->outputBoard($board, $output);
                 if ($ruleSet->isGameOver($game)) {
                     $winner = $ruleSet->getWinner($game);
-                    $winnerMessage = sprintf('Player %s won!', $winner->getId());
+                    $winnerMessageStyle = new OutputFormatterStyle('green', 'red', ['bold', 'blink']);
+                    $output->getFormatter()->setStyle('win', $winnerMessageStyle);
+                    $winnerMessage = sprintf('<win>Player %s won!</win>', $winner->getId());
                     $output->writeln($winnerMessage);
+                    break;
                 }
             }
         }
