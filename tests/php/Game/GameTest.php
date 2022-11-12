@@ -50,7 +50,7 @@ class GameTest extends AbstractTestCase
         $game->invoke($command);
 
         $this->assertSame(1, $commandSpy->getInvocationCount());
-        $this->assertSame($player1, $commandSpy->getInvocations()[0]->parameters[0]);
+        $this->assertSame($player1, $commandSpy->getInvocations()[0]->getParameters()[0]);
         $this->assertSame($player2, $game->getActivePlayer());
     }
 

@@ -1,5 +1,9 @@
 /.env
+
 /.idea/
-phpunit.xml
+
+/.phpunit.result.cache
+/phpunit.xml
 /tests/_coverage/
+
 /vendor/

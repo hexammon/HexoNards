@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ## [Unreleased]  
  
+## [1.0.0-beta - 2022-11-12] 
+
+### Added
+- Hotseat mode with CLI
+- Dockerized env for local development
+- One dice randomizer
+- Actions layer
+- New methods in core classes
+
+### Changed
+- Classic ruleset classes moved to sub-namespace
+
+### Fixed
+- Two dices random
+- Game over detection (last blocked unit case)
+
 ## [1.0.0-alpha.5 - 2017-12-20]  
 
 ### Fixed

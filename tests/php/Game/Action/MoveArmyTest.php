@@ -74,7 +74,7 @@ class MoveArmyTest extends AbstractTestCase
         $this->assertSame($army, $targetTile->getArmy());
 
         $remainingArmyTileSpy = $sourceTileSpy->getInvocations()[1];
-        $remainingArmy = $remainingArmyTileSpy->parameters[0];
+        $remainingArmy = $remainingArmyTileSpy->getParameters()[0];
         $this->assertCount(5, $remainingArmy);
         $this->assertSame($sourceTile, $remainingArmy->getTile());
     }

@@ -19,7 +19,6 @@ class GameOverDetector implements GameOverDetectorInterface
     {
         /**@var Army $lastArmy */
         $lastArmy = null;
-        // TODO check that player have something out of castles under siege with last unit
         /**@var AbstractTile $tile */
         foreach ($game->getBoard()->getTiles() as $tile) {
             $notLastUnitUnderSiege = !$tile->hasCastle() || !$tile->getCastle()->isUnderSiege() || $tile->getArmy()->count() > 1;
