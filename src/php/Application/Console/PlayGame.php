@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hexammon\HexoNards\Application\Console;
 
+use Hexammon\HexoNards\Application\I18n\GameplayMessages;
 use Hexammon\HexoNards\Application\I18n\HelpMessages;
 use Hexammon\HexoNards\Application\I18n\Questions;
 use Hexammon\HexoNards\Application\I18n\Translation;
@@ -84,7 +85,7 @@ class PlayGame extends Command
 
         while (!$ruleSet->isGameOver($game)) {
             $activePlayer = $game->getActivePlayer();
-            $questionHelper->ask($input, $output, new ConfirmationQuestion($this->translation->translate(Questions::THROW_DICES_PLAYER, $activePlayer->getId())));
+            $questionHelper->ask($input, $output, new ConfirmationQuestion($this->translation->translate(HelpMessages::THROW_DICES_PLAYER, $activePlayer->getId())));
             $moves = $game->getMoveCounter()->count();
             $output->writeln($this->translation->translate(HelpMessages::PLAYER_HAVE_MOVES, self::DICE_SYMBOLS[$moves], $moves));
             for ($move = 1; $move <= $moves; $move++) {
@@ -95,7 +96,8 @@ class PlayGame extends Command
                     $winner = $ruleSet->getWinner($game);
                     $winnerMessageStyle = new OutputFormatterStyle('green', 'red', ['bold', 'blink']);
                     $output->getFormatter()->setStyle('win', $winnerMessageStyle);
-                    $winnerMessage = sprintf('<win>Player %s won!</win>', $winner->getId());
+                    $winnerMessage = $this->translation->translate(GameplayMessages::WINNER_MESSAGE, $winner->getId());
+                    $winnerMessage = sprintf('<win>%s</win>', $winnerMessage);
                     $output->writeln($winnerMessage);
                     break;
                 }
@@ -134,7 +136,6 @@ class PlayGame extends Command
             $rowHeader = sprintf('%s|', str_pad((string)$row->getNumber(), 5, ' ', STR_PAD_BOTH));
             $output->write($rowHeader);
             foreach ($row->getTiles() as $tile) {
-                $coords = $tile->getCoordinates();
                 if ($tile->hasCastle()) {
                     $castleArmyValue = str_pad((string)$tile->getArmy()->count(), 3, ' ', STR_PAD_BOTH);
                     $output->write(sprintf('[%s]|', $castleArmyValue));
@@ -161,37 +162,37 @@ class PlayGame extends Command
         $variantsMap = [];
 
         foreach ($actionVariants->getSpawnVariants() as $spawnVariant) {
-            $optionDescription = 'Пополнить гарнизон на ' . $spawnVariant->getTargetTile()->getCoordinates();
+            $optionDescription = $this->translation->translate(GameplayMessages::REPLENISH_GARRISON, $spawnVariant->getTargetTile()->getCoordinates());
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $spawnVariant;
         }
 
         foreach ($actionVariants->getFoundCastleVariants() as $foundCastleVariant) {
-            $optionDescription = sprintf('Основать замок на %s', $foundCastleVariant->getTargetTile()->getCoordinates());
+            $optionDescription = $this->translation->translate(GameplayMessages::FOUND_CASTLE, $foundCastleVariant->getTargetTile()->getCoordinates());
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $foundCastleVariant;
         }
 
         foreach ($actionVariants->getMovementVariants() as $movementVariant) {
-            $optionDescription = 'Передвинуть армию с ' . $movementVariant->getSource()->getCoordinates() . ' на ' . $movementVariant->getTarget()->getCoordinates();
+            $optionDescription = $this->translation->translate(GameplayMessages::MOVE_ARMY, $movementVariant->getSource()->getCoordinates(), $movementVariant->getTarget()->getCoordinates());
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $movementVariant;
         }
 
         foreach ($actionVariants->getAttackVariants() as $attackVariant) {
-            $optionDescription = sprintf('Атаковать врага с %s на %s', $attackVariant->getSourceTile()->getCoordinates(), $attackVariant->getTargetTile()->getCoordinates());
+            $optionDescription = $this->translation->translate(GameplayMessages::ATTACK_ENEMY, $attackVariant->getSourceTile()->getCoordinates(), $attackVariant->getTargetTile()->getCoordinates());
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $attackVariant;
         }
 
         foreach ($actionVariants->getDeductEnemyGarrisonVariants() as $deductEnemyGarrisonVariant) {
-            $optionDescription = sprintf('Уменьшить вражеский осаждённый гарнизон на %s', $deductEnemyGarrisonVariant->getTargetTile()->getCoordinates());
+            $optionDescription = $this->translation->translate(GameplayMessages::TAKE_OFF_ENEMY_GARRISON, $deductEnemyGarrisonVariant->getTargetTile()->getCoordinates());
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $deductEnemyGarrisonVariant;
         }
 
         foreach ($actionVariants->getAssaultVariants() as $assaultVariant) {
-            $optionDescription = sprintf('Захватить вражеский осаждённый замок на %s армией %s', $assaultVariant->getTargetTile()->getCoordinates(), $assaultVariant->getSourceTile()->getCoordinates());
+            $optionDescription = $this->translation->translate(GameplayMessages::ASSAULT_CASTLE, $assaultVariant->getTargetTile()->getCoordinates(), $assaultVariant->getSourceTile()->getCoordinates());
             $availableActions[] = $optionDescription;
             $variantsMap[$optionDescription] = $assaultVariant;
         }
