@@ -10,6 +10,6 @@ class TwoDice implements RandomInterface
 
     public function random(): int
     {
-        return rand(2, 12);
+        return rand(1, 6) + rand(1, 6);
     }
 }

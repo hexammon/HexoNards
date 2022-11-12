@@ -36,7 +36,7 @@ class TakeOffEnemyGarrison implements PlayerActionInterface
 
         $garrison = $this->castle->getArmy();
         if(1 === count($garrison)) {
-            throw new InapplicableActionException('Cannot deducy last unit in garrison, castle should be assaulted. ');
+            throw new InapplicableActionException('Cannot deduct last unit in garrison, castle should be assaulted. ');
         }
         $garrison->deduct(1);
     }

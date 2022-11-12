@@ -33,7 +33,7 @@ class MergeArmy implements PlayerActionInterface
             throw new InapplicableActionException('Can not merge with enemy. ');
         }
         $targetTile = $this->targetArmy->getTile();
-        $unionArmy = Army::merge($this->sourceArmy, $this->targetArmy);
+        $unionArmy = Army::merge($this->targetArmy, $this->sourceArmy);
         $targetTile->setArmy($unionArmy);
     }
 }

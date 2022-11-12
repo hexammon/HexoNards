@@ -6,7 +6,7 @@ use Hexammon\HexoNards\Board\Board;
 use Hexammon\HexoNards\Game\Action\Exception\InapplicableActionException;
 use Hexammon\HexoNards\Game\Action\PlayerActionInterface;
 use Hexammon\HexoNards\Game\Move\MovesCounter;
-use Hexammon\HexoNards\Game\Rules\ClassicRuleSet;
+use Hexammon\HexoNards\Game\Rules\Classic\RuleSet;
 use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
 
 /**
@@ -35,7 +35,7 @@ class Game
     {
         $this->players = $players;
         $this->board = $board;
-        $this->ruleSet = $ruleSet ?: new ClassicRuleSet();
+        $this->ruleSet = $ruleSet ?: new RuleSet();
         $this->moveCounter = new MovesCounter($this->ruleSet->getMoveGenerator(), new \ArrayIterator($players));
     }
 
@@ -66,6 +66,11 @@ class Game
     public function getBoard(): Board
     {
         return $this->board;
+    }
+
+    public function getMoveCounter(): MovesCounter
+    {
+        return $this->moveCounter;
     }
 
 }

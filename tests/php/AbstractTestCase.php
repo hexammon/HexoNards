@@ -8,8 +8,12 @@ use Hexammon\HexoNards\Board\Hex\Tile;
 use Hexammon\HexoNards\Board\Row;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\Move\MoveGeneratorInterface;
+use Hexammon\HexoNards\Game\PlayerInterface;
+use Hexammon\HexoNards\Game\Rules\ActionVariantsCollectorInterface;
 use Hexammon\HexoNards\Game\Rules\InitialSettingInterface;
+use Hexammon\HexoNards\Game\Rules\MovableArmiesCollectorInterface;
 use Hexammon\HexoNards\Game\Rules\RuleSetInterface;
+use http\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -91,6 +95,16 @@ abstract class AbstractTestCase extends TestCase
             public function isGameOver(Game $game): bool
             {
                 return false;
+            }
+
+            public function getActionVariantsCollector(): ActionVariantsCollectorInterface
+            {
+                throw new \RuntimeException();
+            }
+
+            public function getWinner(Game $game): PlayerInterface
+            {
+                throw new RuntimeException();
             }
         };
     }

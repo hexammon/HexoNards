@@ -3,6 +3,8 @@
 namespace Hexammon\HexoNards\Board;
 
 use Hexammon\HexoNards\Board\Exception\TileOutOfBoundsException;
+use Hexammon\HexoNards\Game\Army;
+use Hexammon\HexoNards\Game\PlayerInterface;
 
 /**
  * @author samizdam <samizdam@inbox.ru>
@@ -89,5 +91,21 @@ class Board
     public function getColumns(): array
     {
         return $this->columns;
+    }
+
+    /**
+     * @param PlayerInterface $player
+     * @return array|Army[]
+     */
+    public function getPlayerArmies(PlayerInterface $player): array
+    {
+        $armies = [];
+        foreach ($this->getTiles() as $tile) {
+            if($tile->hasArmy() && $tile->getArmy()->getOwner() === $player) {
+                $armies[] = $tile->getArmy();
+            }
+        }
+
+        return $armies;
     }
 }

@@ -1,14 +1,15 @@
 <?php
 
-namespace Hexammon\HexoNards\Game\Rules;
+namespace Hexammon\HexoNards\Game\Rules\Classic;
 
 use Hexammon\HexoNards\Board\AbstractTile;
 use Hexammon\HexoNards\Game\Army;
 use Hexammon\HexoNards\Game\Game;
 use Hexammon\HexoNards\Game\PlayerInterface;
 use Hexammon\HexoNards\Game\Rules\Exception\GameNotOverException;
+use Hexammon\HexoNards\Game\Rules\GameOverDetectorInterface;
 
-class ClassicGameOverDetector implements GameOverDetectorInterface
+class GameOverDetector implements GameOverDetectorInterface
 {
 
     /**
@@ -18,9 +19,11 @@ class ClassicGameOverDetector implements GameOverDetectorInterface
     {
         /**@var Army $lastArmy */
         $lastArmy = null;
+        // TODO check that player have something out of castles under siege with last unit
         /**@var AbstractTile $tile */
         foreach ($game->getBoard()->getTiles() as $tile) {
-            if ($tile->hasArmy()) {
+            $notLastUnitUnderSiege = !$tile->hasCastle() || !$tile->getCastle()->isUnderSiege() || $tile->getArmy()->count() > 1;
+            if ($tile->hasArmy() && $notLastUnitUnderSiege) {
                 if (empty($lastArmy)) {
                     $lastArmy = $tile->getArmy();
                     continue;
